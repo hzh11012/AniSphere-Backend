@@ -1,0 +1,127 @@
+import axios, {
+  type AxiosInstance,
+  type AxiosRequestConfig,
+  type AxiosResponse
+} from 'axios';
+import { toast } from 'sonner';
+
+// 统一的响应数据结构
+interface ApiResponse<T = any> {
+  code: number;
+  message: string;
+  data?: T;
+}
+
+export interface RequestConfig extends AxiosRequestConfig {
+  showSuccessToast?: boolean;
+  showErrorToast?: boolean;
+}
+
+export class ApiError extends Error {
+  code: number;
+  status?: number;
+  data?: any;
+
+  constructor(message: string, code: number, status?: number, data?: any) {
+    super(message);
+    this.name = 'ApiError';
+    this.code = code;
+    this.status = status;
+    this.data = data;
+  }
+}
+
+class AxiosRequest {
+  private instance: AxiosInstance;
+  private readonly defaultTimeout = 10 * 1000;
+
+  constructor(config?: AxiosRequestConfig) {
+    this.instance = axios.create({
+      timeout: this.defaultTimeout,
+      headers: { 'Content-Type': 'application/json' },
+      ...config
+    });
+
+    this.setupInterceptors();
+  }
+
+  private setupInterceptors() {
+    // 请求拦截器
+    this.instance.interceptors.request.use(
+      config => config,
+      error => Promise.reject(error)
+    );
+
+    // 响应拦截器
+    this.instance.interceptors.response.use(
+      (response: AxiosResponse<ApiResponse>) => {
+        const config = response.config as RequestConfig;
+        const { message, data } = response.data;
+
+        if (config.showSuccessToast) {
+          toast.success(message);
+        }
+
+        return data;
+      },
+      error => {
+        const config = error.config as RequestConfig;
+        let errorMessage = '请求失败';
+
+        if (error.response) {
+          const { status: httpStatus, data } = error.response;
+          errorMessage = data.message;
+
+          // 当状态码为401时，跳转登录页
+          if (httpStatus === 401) {
+            const currentPath =
+              window.location.pathname + window.location.search;
+            const redirectPath =
+              currentPath !== '/login'
+                ? `?redirect=${encodeURIComponent(currentPath)}`
+                : '';
+            window.location.href = `/login${redirectPath}`;
+          }
+        } else if (error.request) {
+          errorMessage = '网络连接失败，请检查网络';
+        } else {
+          errorMessage = error.message || '请求失败';
+        }
+
+        if (config.showErrorToast) {
+          toast.error(errorMessage);
+        }
+        return Promise.reject(error);
+      }
+    );
+  }
+
+  // GET 请求
+  get<T = any>(url: string, config?: RequestConfig): Promise<T> {
+    return this.instance.get(url, config);
+  }
+
+  // POST 请求
+  post<T = any>(url: string, data?: any, config?: RequestConfig): Promise<T> {
+    return this.instance.post(url, data, config);
+  }
+
+  // PUT 请求
+  put<T = any>(url: string, data?: any, config?: RequestConfig): Promise<T> {
+    return this.instance.put(url, data, config);
+  }
+
+  // DELETE 请求
+  delete<T = any>(url: string, config?: RequestConfig): Promise<T> {
+    return this.instance.delete(url, config);
+  }
+
+  // PATCH 请求
+  patch<T = any>(url: string, data?: any, config?: RequestConfig): Promise<T> {
+    return this.instance.patch(url, data, config);
+  }
+}
+
+const request = new AxiosRequest();
+
+export default request;
