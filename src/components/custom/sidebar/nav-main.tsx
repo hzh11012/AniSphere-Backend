@@ -1,0 +1,111 @@
+import React, { memo, useMemo } from 'react';
+import { ChevronRight, type LucideIcon } from 'lucide-react';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger
+} from '@/components/ui/collapsible';
+import {
+  SidebarGroup,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem
+} from '@/components/ui/sidebar';
+import { Link } from 'react-router-dom';
+
+interface NavSubItem {
+  title: string;
+  icon?: LucideIcon;
+  url: string;
+}
+
+interface NavItem {
+  title: string;
+  url: string;
+  icon?: LucideIcon;
+  isActive?: boolean;
+  items?: NavSubItem[];
+}
+
+interface NavMainProps {
+  items: NavItem[];
+}
+
+// 有子菜单的导航项
+const NavItemWithSub: React.FC<{ item: NavItem }> = memo(({ item }) => (
+  <Collapsible
+    asChild
+    defaultOpen={item.isActive}
+    className='group/collapsible'
+  >
+    <SidebarMenuItem>
+      <CollapsibleTrigger asChild>
+        <SidebarMenuButton tooltip={item.title}>
+          {item.icon && <item.icon />}
+          <span className='whitespace-nowrap'>{item.title}</span>
+          <ChevronRight className='ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90' />
+        </SidebarMenuButton>
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <SidebarMenuSub>
+          {item.items?.map(subItem => (
+            <SidebarMenuSubItem key={subItem.title}>
+              <SidebarMenuSubButton asChild>
+                <Link to={item.url + subItem.url}>
+                  {subItem.icon && <subItem.icon />}
+                  <span>{subItem.title}</span>
+                </Link>
+              </SidebarMenuSubButton>
+            </SidebarMenuSubItem>
+          ))}
+        </SidebarMenuSub>
+      </CollapsibleContent>
+    </SidebarMenuItem>
+  </Collapsible>
+));
+
+// 无子菜单的导航项
+const NavItemSimple: React.FC<{ item: NavItem }> = memo(({ item }) => (
+  <SidebarMenuItem>
+    <SidebarMenuButton
+      tooltip={item.title}
+      asChild
+    >
+      <Link to={item.url}>
+        {item.icon && <item.icon />}
+        <span>{item.title}</span>
+      </Link>
+    </SidebarMenuButton>
+  </SidebarMenuItem>
+));
+
+const NavMain: React.FC<NavMainProps> = memo(({ items }) => {
+  const renderedItems = useMemo(
+    () =>
+      items.map(item =>
+        item.items ? (
+          <NavItemWithSub
+            key={item.title}
+            item={item}
+          />
+        ) : (
+          <NavItemSimple
+            key={item.title}
+            item={item}
+          />
+        )
+      ),
+    [items]
+  );
+
+  return (
+    <SidebarGroup>
+      <SidebarMenu>{renderedItems}</SidebarMenu>
+    </SidebarGroup>
+  );
+});
+
+export default NavMain;

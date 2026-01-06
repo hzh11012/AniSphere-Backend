@@ -17,7 +17,7 @@ const Layout = () => {
             <SidebarTrigger className='md:hidden' />
           </div>
           <div className='flex items-center gap-2 px-4 pr-6'>
-            <ThemeSwitch />
+            <ThemeSwitch className='cursor-pointer'/>
           </div>
         </header>
         <div className='flex flex-1 flex-col gap-4 p-4 md:pr-6 pb-4 md:pb-2'>

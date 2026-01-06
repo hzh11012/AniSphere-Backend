@@ -4,7 +4,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { PanelLeftIcon } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { cn } from '@/lib/utils';
-import { Input } from '@/components/ui/input';
+import { Button } from './button';
 import { Sheet, SheetContent } from '@/components/ui/sheet';
 import {
   Tooltip,
@@ -148,7 +148,7 @@ function Sidebar({
 
   return (
     <div
-      className='group peer text-card-foreground hidden md:block'
+      className='group peer text-foreground hidden md:block'
       data-state={state}
       data-collapsible={state === 'collapsed' ? 'icon' : ''}
       data-slot='sidebar'
@@ -186,21 +186,23 @@ function SidebarTrigger({
   className,
   onClick,
   ...props
-}: React.ComponentProps<'svg'>) {
+}: React.ComponentProps<typeof Button>) {
   const { toggleSidebar } = useSidebar();
 
   return (
-    <PanelLeftIcon
-      size={22}
+    <Button
+      variant='icon'
       data-sidebar='trigger'
       data-slot='sidebar-trigger'
-      className={cn(className)}
+      className={cn("p-0! size-full [&_svg:not([class*='size-'])]:size-5.5", className)}
       onClick={event => {
         onClick?.(event);
         toggleSidebar();
       }}
       {...props}
-    />
+    >
+      <PanelLeftIcon />
+    </Button>
   );
 }
 
@@ -287,13 +289,13 @@ function SidebarMenuItem({ className, ...props }: React.ComponentProps<'li'>) {
 }
 
 const sidebarMenuButtonVariants = cva(
-  'peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm outline-hidden ring-ring transition-[width,height,padding] hover:bg-accent hover:text-accent-foreground focus-visible:ring-2 active:bg-accent active:text-accent-foreground disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-accent data-[active=true]:font-medium data-[active=true]:text-accent-foreground data-[state=open]:hover:bg-accent data-[state=open]:hover:text-accent-foreground group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0',
+  'peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm outline-hidden ring-ring transition-[width,height,padding] hover:bg-accent focus-visible:ring-2 active:bg-accent disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-accent data-[active=true]:font-medium data-[state=open]:hover:bg-accent group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0',
   {
     variants: {
       variant: {
-        default: 'hover:bg-accent hover:text-accent-foreground',
+        default: 'hover:bg-accent',
         outline:
-          'bg-background shadow-[0_0_0_1px_hsl(var(--border))] hover:bg-accent hover:text-accent-foreground hover:shadow-[0_0_0_1px_hsl(var(--accent))]'
+          'bg-background shadow-[0_0_0_1px_hsl(var(--border))] hover:bg-accent hover:shadow-[0_0_0_1px_hsl(var(--accent))]'
       },
       size: {
         default: 'h-8 text-sm',
@@ -407,8 +409,8 @@ function SidebarMenuSubButton({
       data-size={size}
       data-active={isActive}
       className={cn(
-        'text-foreground ring-ring hover:bg-accent hover:text-accent-foreground active:bg-accent active:text-accent-foreground [&>svg]:text-accent-foreground flex h-7 min-w-0 -translate-x-px items-center gap-2 overflow-hidden rounded-md px-2 outline-hidden focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0',
-        'data-[active=true]:bg-accent data-[active=true]:text-accent-foreground',
+        'text-foreground ring-ring hover:bg-accent active:bg-accent flex h-7 min-w-0 -translate-x-px items-center gap-2 overflow-hidden rounded-md px-2 outline-hidden focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0',
+        'data-[active=true]:bg-accent',
         size === 'sm' && 'text-xs',
         size === 'md' && 'text-sm',
         'group-data-[collapsible=icon]:hidden',
