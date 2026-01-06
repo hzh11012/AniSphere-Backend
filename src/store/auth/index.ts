@@ -1,46 +1,74 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
-import { login, sendCode } from '@/apis';
+import { login, logout, me, sendCode } from '@/apis';
+
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  role: string;
+  status: boolean;
+  avatar: string;
+}
 
 interface AuthStore {
-  user: {
-    id: number;
-    name: string;
-    email: string;
-    role: string;
-    status: boolean;
-    avatar: string;
-  };
+  isAuthenticated: boolean;
+  isInitialized: boolean;
 
-  setUser: (user: AuthStore['user']) => void;
+  user: User | null;
+
+  setUser: (user: User | null) => void;
+  setAuthenticated: (value: boolean) => void;
+
+  initialize: () => Promise<void>;
 
   code: {
     loading: boolean;
     fetchData: (email: string, cb: () => void) => Promise<void>;
   };
 
-  login: {
-    fetchData: (email: string, code: string) => Promise<boolean>;
-  };
+  login: (email: string, code: string) => Promise<boolean>;
+
+  logout: () => Promise<void>;
 }
 
 const useAuthStore = create<AuthStore>()(
   devtools(
     immer(set => ({
-      user: {
-        id: 0,
-        name: '',
-        email: '',
-        role: 'guest',
-        status: false,
-        avatar: ''
-      },
+      isAuthenticated: false,
+      isInitialized: false,
+      user: null,
 
       setUser: user => {
         set(state => {
           state.user = user;
+          state.isAuthenticated = !!user;
         });
+      },
+
+      setAuthenticated: value => {
+        set(state => {
+          state.isAuthenticated = value;
+        });
+      },
+
+      // 初始化：尝试获取当前用户信息
+      initialize: async () => {
+        try {
+          const user = await me();
+          set(state => {
+            state.user = user;
+            state.isAuthenticated = true;
+            state.isInitialized = true;
+          });
+        } catch {
+          set(state => {
+            state.user = null;
+            state.isAuthenticated = false;
+            state.isInitialized = true;
+          });
+        }
       },
 
       code: {
@@ -60,14 +88,28 @@ const useAuthStore = create<AuthStore>()(
         }
       },
 
-      login: {
-        fetchData: async (email, code) => {
-          try {
-            await login(email, code);
-            return true;
-          } catch {
-            return false;
-          }
+      login: async (email, code) => {
+        try {
+          const user = await login(email, code);
+          set(state => {
+            state.user = user;
+            state.isAuthenticated = true;
+            state.isInitialized = true;
+          });
+          return true;
+        } catch {
+          return false;
+        }
+      },
+
+      logout: async () => {
+        try {
+          await logout();
+        } finally {
+          set(state => {
+            state.user = null;
+            state.isAuthenticated = false;
+          });
         }
       }
     }))

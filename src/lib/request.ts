@@ -74,13 +74,8 @@ class AxiosRequest {
 
           // 当状态码为401时，跳转登录页
           if (httpStatus === 401) {
-            const currentPath =
-              window.location.pathname + window.location.search;
-            const redirectPath =
-              currentPath !== '/login'
-                ? `?redirect=${encodeURIComponent(currentPath)}`
-                : '';
-            window.location.href = `/login${redirectPath}`;
+            // 使用自定义事件通知认证失效
+            window.dispatchEvent(new CustomEvent('auth:unauthorized'));
           }
         } else if (error.request) {
           errorMessage = '网络连接失败，请检查网络';

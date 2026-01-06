@@ -10,15 +10,13 @@ import { useDebounceFn } from 'ahooks';
 import { useAuthStore } from '@/store';
 import CodeDialog from './code-dialog';
 import Loading from '@/components/custom/loading';
-import { useSearchParams } from 'react-router-dom';
 
 const Login: React.FC = () => {
-  const [searchParams] = useSearchParams();
   const [open, setOpen] = useState(false);
   const { start, count, isDisable } = useCountDown(60);
   const sendCode = useAuthStore(state => state.code.fetchData);
   const loading = useAuthStore(state => state.code.loading);
-  const login = useAuthStore(state => state.login.fetchData);
+  const login = useAuthStore(state => state.login);
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(schema),
@@ -28,7 +26,6 @@ const Login: React.FC = () => {
   });
 
   const email = form.watch('email');
-  const redirectUrl = searchParams.get('redirect') || '/';
 
   const handleSubmit = useCallback(async (values: LoginFormValues) => {
     const { email } = values;
@@ -51,9 +48,7 @@ const Login: React.FC = () => {
   const { run: handleLogin } = useDebounceFn(
     async (email: string, code: string, setCode: (code: string) => void) => {
       const success = await login(email, code);
-      if (success) {
-        window.location.href = redirectUrl;
-      } else {
+      if (!success) {
         setCode('');
       }
     },

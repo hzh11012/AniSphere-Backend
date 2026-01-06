@@ -1,45 +1,63 @@
-import { createBrowserRouter, type RouteObject } from 'react-router-dom';
+import {
+  createBrowserRouter,
+  Outlet,
+  type RouteObject
+} from 'react-router-dom';
 import { createLazyComponent } from '@/lib/utils';
 import Exception from '@/components/custom/exception';
 import Fallback from '@/components/custom/fallback';
-import { useAuthStore } from '@/store';
 import Layout from '@/layout';
-
-const WithLayout = ({ children }: { children: React.ReactNode }) => {
-  // const role = useAuthStore(state => state.user.role);
-
-  // if (role !== 'admin') {
-  //   return <Exception type='ban' />;
-  // }
-  return <>{children}</>;
-};
+import {
+  RequireAuth,
+  RedirectIfAuthenticated
+} from '@/components/custom/auth/auth-guard';
+import { AuthProvider } from '@/components/custom/auth/auth-provider';
 
 const staticRoutes: RouteObject[] = [
   {
-    path: '/login',
-    lazy: createLazyComponent(() => import('@/pages/login/index')),
-    hydrateFallbackElement: <Fallback />,
-    errorElement: <Exception type='error' />
-  },
-  {
-    path: '/',
-    Component: () => (
-      <WithLayout>
-        <Layout />
-      </WithLayout>
+    element: (
+      <AuthProvider>
+        <Outlet />
+      </AuthProvider>
     ),
-    hydrateFallbackElement: <Fallback />,
-    errorElement: <Exception type='error' />,
     children: [
       {
-        index: true,
-        lazy: createLazyComponent(() => import('@/pages/dashboard/index'))
+        path: '/login',
+        element: (
+          <RedirectIfAuthenticated>
+            <Outlet />
+          </RedirectIfAuthenticated>
+        ),
+        hydrateFallbackElement: <Fallback />,
+        errorElement: <Exception type='error' />,
+        children: [
+          {
+            index: true,
+            lazy: createLazyComponent(() => import('@/pages/login/index'))
+          }
+        ]
+      },
+      {
+        path: '/',
+        Component: () => (
+          <RequireAuth>
+            <Layout />
+          </RequireAuth>
+        ),
+        hydrateFallbackElement: <Fallback />,
+        errorElement: <Exception type='error' />,
+        children: [
+          {
+            index: true,
+            lazy: createLazyComponent(() => import('@/pages/dashboard/index'))
+          }
+        ]
+      },
+      {
+        path: '*',
+        element: <Exception />
       }
     ]
-  },
-  {
-    path: '*',
-    element: <Exception />
   }
 ];
 
