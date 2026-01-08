@@ -13,6 +13,7 @@ const NavHeader = memo(() => {
       <SidebarMenuItem>
         <SidebarMenuButton
           size='lg'
+          className='cursor-default'
           asChild
         >
           <div>

@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 import { login, logout, me, sendCode } from '@/apis';
+import { toast } from 'sonner';
 
 interface User {
   id: number;
@@ -57,6 +58,17 @@ const useAuthStore = create<AuthStore>()(
       initialize: async () => {
         try {
           const user = await me();
+
+          if (user.role !== 'admin') {
+            toast.error('权限不足');
+            set(state => {
+              state.user = null;
+              state.isAuthenticated = false;
+              state.isInitialized = true;
+            });
+            return;
+          }
+
           set(state => {
             state.user = user;
             state.isAuthenticated = true;
@@ -91,6 +103,12 @@ const useAuthStore = create<AuthStore>()(
       login: async (email, code) => {
         try {
           const user = await login(email, code);
+
+          if (user.role !== 'admin') {
+            toast.error('权限不足');
+            return false;
+          }
+
           set(state => {
             state.user = user;
             state.isAuthenticated = true;

@@ -39,8 +39,10 @@ const LinkBreadcrumb: React.FC<LinkBreadcrumbProps> = memo(({ items }) => {
             <Link to={'/'}>{homeTitle}</Link>
           </BreadcrumbLink>
         </BreadcrumbItem>
-        <BreadcrumbSeparator className={cn({ 'hidden': isHomePage })} />
-        <BreadcrumbItem className={cn({ 'hidden': isHomePage })}>
+        <BreadcrumbSeparator
+          className={cn({ 'hidden': isHomePage || !title })}
+        />
+        <BreadcrumbItem className={cn({ 'hidden': isHomePage || !title })}>
           <BreadcrumbPage>{title}</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
