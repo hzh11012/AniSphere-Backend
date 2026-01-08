@@ -194,7 +194,7 @@ function SidebarTrigger({
       variant='icon'
       data-sidebar='trigger'
       data-slot='sidebar-trigger'
-      className={cn("p-0! size-full [&_svg:not([class*='size-'])]:size-5.5", className)}
+      className={cn("p-0! h-5.5 [&_svg:not([class*='size-'])]:size-5.5", className)}
       onClick={event => {
         onClick?.(event);
         toggleSidebar();

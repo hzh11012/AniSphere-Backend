@@ -49,13 +49,21 @@ const staticRoutes: RouteObject[] = [
         children: [
           {
             index: true,
-            lazy: createLazyComponent(() => import('@/pages/dashboard/index'))
+            lazy: createLazyComponent(() => import('@/pages/home/index'))
+          },
+          {
+            path: 'torrents',
+            lazy: createLazyComponent(() => import('@/pages/torrents/index'))
+          },
+          {
+            path: 'tasks',
+            lazy: createLazyComponent(() => import('@/pages/tasks/index'))
+          },
+          {
+            path: '*',
+            element: <Exception />
           }
         ]
-      },
-      {
-        path: '*',
-        element: <Exception />
       }
     ]
   }

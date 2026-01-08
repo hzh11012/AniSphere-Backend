@@ -1,5 +1,5 @@
 import React, { memo, useMemo } from 'react';
-import { ChevronRight, type LucideIcon } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 import {
   Collapsible,
   CollapsibleContent,
@@ -15,20 +15,7 @@ import {
   SidebarMenuSubItem
 } from '@/components/ui/sidebar';
 import { Link } from 'react-router-dom';
-
-interface NavSubItem {
-  title: string;
-  icon?: LucideIcon;
-  url: string;
-}
-
-interface NavItem {
-  title: string;
-  url: string;
-  icon?: LucideIcon;
-  isActive?: boolean;
-  items?: NavSubItem[];
-}
+import type { NavItem } from '@/links';
 
 interface NavMainProps {
   items: NavItem[];
@@ -51,16 +38,19 @@ const NavItemWithSub: React.FC<{ item: NavItem }> = memo(({ item }) => (
       </CollapsibleTrigger>
       <CollapsibleContent>
         <SidebarMenuSub>
-          {item.items?.map(subItem => (
-            <SidebarMenuSubItem key={subItem.title}>
-              <SidebarMenuSubButton asChild>
-                <Link to={item.url + subItem.url}>
-                  {subItem.icon && <subItem.icon />}
-                  <span>{subItem.title}</span>
-                </Link>
-              </SidebarMenuSubButton>
-            </SidebarMenuSubItem>
-          ))}
+          {item.items?.map(subItem => {
+            const subLink = item.url ? item.url + subItem.url : subItem.url;
+            return (
+              <SidebarMenuSubItem key={subItem.title}>
+                <SidebarMenuSubButton asChild>
+                  <Link to={subLink}>
+                    {subItem.icon && <subItem.icon />}
+                    <span>{subItem.title}</span>
+                  </Link>
+                </SidebarMenuSubButton>
+              </SidebarMenuSubItem>
+            );
+          })}
         </SidebarMenuSub>
       </CollapsibleContent>
     </SidebarMenuItem>
@@ -74,7 +64,7 @@ const NavItemSimple: React.FC<{ item: NavItem }> = memo(({ item }) => (
       tooltip={item.title}
       asChild
     >
-      <Link to={item.url}>
+      <Link to={item.url!}>
         {item.icon && <item.icon />}
         <span>{item.title}</span>
       </Link>

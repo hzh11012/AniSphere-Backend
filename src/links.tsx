@@ -1,6 +1,36 @@
-import { Cat, LayoutDashboard, Timer } from 'lucide-react';
+import {
+  Cat,
+  LayoutDashboard,
+  Sprout,
+  Timer,
+  type LucideIcon
+} from 'lucide-react';
 
-const links = [
+interface NavSubItem {
+  title: string;
+  icon?: LucideIcon;
+  url: string;
+}
+
+interface NavItemBase {
+  title: string;
+  icon?: LucideIcon;
+  isActive?: boolean;
+}
+
+interface NavItemWithChildren extends NavItemBase {
+  items: NavSubItem[];
+  url?: string;
+}
+
+interface NavItemWithoutChildren extends NavItemBase {
+  items?: never;
+  url: string;
+}
+
+type NavItem = NavItemWithChildren | NavItemWithoutChildren;
+
+const links: NavItem[] = [
   {
     title: '首页',
     icon: LayoutDashboard,
@@ -10,10 +40,14 @@ const links = [
     title: '自动化',
     icon: Cat,
     isActive: true,
-    url: '/auto',
     items: [
       {
-        title: '任务管理',
+        title: '种子查询',
+        icon: Sprout,
+        url: '/torrents'
+      },
+      {
+        title: '任务列表',
         icon: Timer,
         url: '/tasks'
       }
@@ -21,4 +55,4 @@ const links = [
   }
 ];
 
-export { links };
+export { links, type NavItem };
