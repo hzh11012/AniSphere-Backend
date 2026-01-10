@@ -1,34 +1,53 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useAuthStore } from '@/store';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Exception from '@/components/custom/exception';
+import { useRequest } from 'ahooks';
+import { me } from '@/apis';
+import { toast } from 'sonner';
+import useDeferredLoading from '@/hooks/use-deferred-loading';
 
 interface AuthProviderProps {
   children: React.ReactNode;
 }
 
-const LOADING_DELAY = 200;
+const useAuthProvider = () => {
+  const setUser = useAuthStore(state => state.setUser);
+  const isInitialized = useAuthStore(state => state.isInitialized);
+  const setInitialized = useAuthStore(state => state.setInitialized);
+
+  const { run } = useRequest(me, {
+    onSuccess: user => {
+      if (user.role !== 'admin') {
+        toast.error('权限不足');
+        setUser(null);
+      } else {
+        setUser(user);
+      }
+    },
+    onError: () => {
+      setUser(null);
+    },
+    onFinally: () => {
+      setInitialized(true);
+    },
+    refreshDeps: [isInitialized],
+    refreshDepsAction: () => {
+      if (!isInitialized) {
+        run();
+      }
+    }
+  });
+
+  return { isInitialized, setUser };
+};
 
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const initialize = useAuthStore(state => state.initialize);
-  const isInitialized = useAuthStore(state => state.isInitialized);
-  const setUser = useAuthStore(state => state.setUser);
-  const [showLoading, setShowLoading] = useState(false);
 
-  useEffect(() => {
-    initialize();
-
-    // 延迟显示 loading，避免快速响应时的闪烁
-    const timer = setTimeout(() => {
-      if (!useAuthStore.getState().isInitialized) {
-        setShowLoading(true);
-      }
-    }, LOADING_DELAY);
-
-    return () => clearTimeout(timer);
-  }, [initialize]);
+  const { isInitialized, setUser } = useAuthProvider();
+  const showLoading = useDeferredLoading(!isInitialized);
 
   useEffect(() => {
     const handleUnauthorized = () => {
@@ -50,7 +69,6 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, [navigate, location, setUser]);
 
   if (!isInitialized) {
-    // 只有超过延迟时间后才显示 loading
     return showLoading ? <Exception type='loading' /> : null;
   }
 

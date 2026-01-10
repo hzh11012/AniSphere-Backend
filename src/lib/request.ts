@@ -33,7 +33,7 @@ export class ApiError extends Error {
 
 class AxiosRequest {
   private instance: AxiosInstance;
-  private readonly defaultTimeout = 10 * 1000;
+  private readonly defaultTimeout = 30 * 1000;
 
   constructor(config?: AxiosRequestConfig) {
     this.instance = axios.create({

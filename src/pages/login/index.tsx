@@ -1,22 +1,49 @@
 import React, { useCallback, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Logo from '@/components/custom/logo';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { LineShadowText } from '@/components/ui/line-shadow-text';
 import { Button } from '@/components/ui/button';
 import { LoginForm, schema, type LoginFormValues } from './login-form';
 import useCountDown from '@/hooks/use-count-down';
-import { useDebounceFn } from 'ahooks';
+import { useRequest } from 'ahooks';
 import { useAuthStore } from '@/store';
 import CodeDialog from './code-dialog';
 import Loading from '@/components/custom/loading';
+import { login, sendCode } from '@/apis';
+import { toast } from 'sonner';
 
-const Login: React.FC = () => {
+const useAuthLogin = () => {
   const [open, setOpen] = useState(false);
   const { start, count, isDisable } = useCountDown(60);
-  const sendCode = useAuthStore(state => state.code.fetchData);
-  const loading = useAuthStore(state => state.code.loading);
-  const login = useAuthStore(state => state.login);
+  const { run: onSendCode, loading } = useRequest(sendCode, {
+    manual: true,
+    debounceWait: 250,
+    onSuccess: () => {
+      !isDisable && start();
+    }
+  });
+  const { runAsync: onLogin } = useRequest(login, {
+    manual: true,
+    debounceWait: 250
+  });
+
+  return {
+    open,
+    setOpen,
+    count,
+    isDisable,
+    onSendCode,
+    loading,
+    onLogin
+  };
+};
+
+const Login: React.FC = () => {
+  const { open, setOpen, count, isDisable, onSendCode, loading, onLogin } =
+    useAuthLogin();
+  const setInitialized = useAuthStore(state => state.setInitialized);
+  const setUser = useAuthStore(state => state.setUser);
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(schema),
@@ -24,37 +51,40 @@ const Login: React.FC = () => {
     mode: 'onSubmit',
     reValidateMode: 'onChange'
   });
+  const email = useWatch({ control: form.control, name: 'email' });
 
-  const email = form.watch('email');
-
-  const handleSubmit = useCallback(async (values: LoginFormValues) => {
-    const { email } = values;
-    handleSendCode(email);
-  }, []);
-
-  const { run: handleSendCode } = useDebounceFn(
-    async (email: string) => {
-      !isDisable &&
-        (await sendCode(email, () => {
-          start();
-        }));
+  const handleSendCode = useCallback(
+    (email: string) => {
+      !isDisable && onSendCode(email);
       setOpen(true);
     },
-    {
-      wait: 200
-    }
+    [isDisable, onSendCode]
   );
 
-  const { run: handleLogin } = useDebounceFn(
+  const handleLogin = useCallback(
     async (email: string, code: string, setCode: (code: string) => void) => {
-      const success = await login(email, code);
-      if (!success) {
+      try {
+        const user = await onLogin(email, code);
+        if (user.role !== 'admin') {
+          toast.error('权限不足');
+          setCode('');
+          return;
+        }
+        setUser(user);
+        setInitialized(true);
+      } catch {
         setCode('');
       }
     },
-    {
-      wait: 200
-    }
+    [onLogin]
+  );
+
+  const handleSubmit = useCallback(
+    (values: LoginFormValues) => {
+      const { email } = values;
+      handleSendCode(email);
+    },
+    [handleSendCode]
   );
 
   return (

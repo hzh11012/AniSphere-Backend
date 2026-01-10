@@ -14,7 +14,7 @@ type LoginFormValues = z.infer<typeof schema>;
 interface FormProps {
   form: UseFormReturn<LoginFormValues>;
   onFocus?: () => void;
-  onSubmit: (values: LoginFormValues) => Promise<void>;
+  onSubmit: (values: LoginFormValues) => void;
 }
 
 const LoginForm: React.FC<FormProps> = ({ form, onFocus, onSubmit }) => {

@@ -11,7 +11,7 @@ function Input({
   prefixIcon?: React.ReactNode;
 }) {
   return (
-    <div className={cn('relative')}>
+    <div className={cn('relative w-full')}>
       <input
         type={type}
         data-slot='input'

@@ -49,3 +49,43 @@ export const getTitleByPath = (items: NavItem[], path: string) => {
   };
   return search(items, '');
 };
+
+/**
+ * 格式化日期
+ * @param date 时间戳
+ */
+export const formatDate = (date: string) => {
+  const d = new Date(date);
+  const year = d.getFullYear();
+  const month = d.getMonth() + 1;
+  const day = d.getDate();
+  const hours = d.getHours().toString().padStart(2, '0');
+  const minutes = d.getMinutes().toString().padStart(2, '0');
+  const seconds = d.getSeconds().toString().padStart(2, '0');
+
+  return `${year}年${month}月${day}日 ${hours}:${minutes}:${seconds}`;
+};
+
+/**
+ * 格式化文件大小
+ * @param size 文件大小（KB）
+ */
+export const formatFileSize = (bytes: number) => {
+  if (bytes === 0) return '0 KB';
+
+  const MB = 1024;
+  const GB = MB * 1024;
+
+  const formatNumber = (num: number): string => {
+    const fixed = num.toFixed(1);
+    return fixed.endsWith('.0') ? Math.floor(num).toString() : fixed;
+  };
+
+  if (bytes >= GB) {
+    return formatNumber(bytes / GB) + ' GB';
+  } else if (bytes >= MB) {
+    return formatNumber(bytes / MB) + ' MB';
+  } else {
+    return formatNumber(bytes) + ' KB';
+  }
+};

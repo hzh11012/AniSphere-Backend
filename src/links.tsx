@@ -59,7 +59,7 @@ const links: NavItem[] = [
       {
         title: '种子检索',
         icon: Sprout,
-        url: '/torrents'
+        url: '/resources'
       },
       {
         title: '下载任务',

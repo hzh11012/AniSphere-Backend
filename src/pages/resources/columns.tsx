@@ -1,0 +1,62 @@
+import type { ResourcesListItem } from '@/apis';
+import { Badge } from '@/components/ui/badge';
+import { formatDate, formatFileSize } from '@/lib/utils';
+import type { ColumnDef } from '@tanstack/react-table';
+import { Search } from 'lucide-react';
+
+const getColumns = () => {
+  const columns: ColumnDef<ResourcesListItem>[] = [
+    {
+      accessorKey: 'fansub',
+      header: '来源',
+      cell: ({ row }) => {
+        const { fansub } = row.original;
+        return <Badge className='text-white'>{fansub}</Badge>;
+      }
+    },
+    {
+      accessorKey: 'title',
+      meta: {
+        title: '资源名称'
+      },
+      header: () => {
+        return (
+          <div className='flex items-center space-x-1'>
+            <span>资源名称</span>
+            <Search className='size-3.5' />
+          </div>
+        );
+      },
+      cell: ({ row }) => {
+        return row.original.title;
+      }
+    },
+    {
+      accessorKey: 'size',
+      header: '资源大小',
+      cell: ({ row }) => {
+        const size = row.original.size;
+        return formatFileSize(size);
+      }
+    },
+    {
+      accessorKey: 'createdAt',
+      header: '发布时间',
+      cell: ({ row }) => {
+        const createdAt = row.original.createdAt;
+        return formatDate(createdAt);
+      }
+    },
+    {
+      id: 'actions',
+      header: '操作',
+      cell: ({ row }) => {
+        // TODO
+        return <div>下载</div>;
+      }
+    }
+  ];
+  return columns;
+};
+
+export default getColumns;

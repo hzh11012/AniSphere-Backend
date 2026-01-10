@@ -5,13 +5,14 @@ import { PanelLeftIcon } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { cn } from '@/lib/utils';
 import { Button } from './button';
-import { Sheet, SheetContent } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetTitle } from '@/components/ui/sheet';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger
 } from '@/components/ui/tooltip';
+import { VisuallyHidden } from '@/components/ui/visually-hidden';
 
 const SIDEBAR_WIDTH = '16rem';
 const SIDEBAR_WIDTH_MOBILE = '18rem';
@@ -129,6 +130,7 @@ function Sidebar({
         {...props}
       >
         <SheetContent
+          aria-describedby={undefined}
           data-sidebar='sidebar'
           data-slot='sidebar'
           data-mobile='true'
@@ -140,6 +142,9 @@ function Sidebar({
           }
           side='left'
         >
+          <VisuallyHidden>
+            <SheetTitle>导航菜单</SheetTitle>
+          </VisuallyHidden>
           <div className='flex h-full w-full flex-col'>{children}</div>
         </SheetContent>
       </Sheet>
@@ -191,10 +196,13 @@ function SidebarTrigger({
 
   return (
     <Button
-      variant='icon'
+      variant='ghost'
       data-sidebar='trigger'
       data-slot='sidebar-trigger'
-      className={cn("p-0! h-5.5 [&_svg:not([class*='size-'])]:size-5.5", className)}
+      className={cn(
+        "p-0! h-5.5 [&_svg:not([class*='size-'])]:size-5.5",
+        className
+      )}
       onClick={event => {
         onClick?.(event);
         toggleSidebar();
@@ -211,7 +219,7 @@ function SidebarInset({ className, ...props }: React.ComponentProps<'main'>) {
     <main
       data-slot='sidebar-inset'
       className={cn(
-        'bg-background relative flex w-full flex-1 flex-col',
+        'bg-background relative flex w-full flex-1 flex-col overflow-hidden',
         className
       )}
       {...props}

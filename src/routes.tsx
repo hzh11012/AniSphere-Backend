@@ -52,8 +52,8 @@ const staticRoutes: RouteObject[] = [
             lazy: createLazyComponent(() => import('@/pages/home/index'))
           },
           {
-            path: 'torrents',
-            lazy: createLazyComponent(() => import('@/pages/torrents/index'))
+            path: 'resources',
+            lazy: createLazyComponent(() => import('@/pages/resources/index'))
           },
           {
             path: 'tasks',
