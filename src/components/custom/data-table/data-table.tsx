@@ -170,12 +170,11 @@ const DataTable = <TData, TValue>({
     state: { pagination, sorting, columnFilters },
     manualPagination: true,
     manualFiltering: true,
+    manualSorting: true,
     onColumnFiltersChange,
     onPaginationChange,
     onSortingChange,
     getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
     initialState: {
       columnPinning: {
         right: ['actions']

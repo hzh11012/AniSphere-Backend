@@ -3,6 +3,7 @@ import { Badge } from '@/components/ui/badge';
 import { formatDate, formatFileSize } from '@/lib/utils';
 import type { ColumnDef } from '@tanstack/react-table';
 import { Search } from 'lucide-react';
+import RowActions from '@/pages/resources/row-actions';
 
 const getColumns = () => {
   const columns: ColumnDef<ResourcesListItem>[] = [
@@ -36,7 +37,7 @@ const getColumns = () => {
       header: '资源大小',
       cell: ({ row }) => {
         const size = row.original.size;
-        return formatFileSize(size);
+        return formatFileSize(size, 'kb');
       }
     },
     {
@@ -51,8 +52,7 @@ const getColumns = () => {
       id: 'actions',
       header: '操作',
       cell: ({ row }) => {
-        // TODO
-        return <div>下载</div>;
+        return <RowActions row={row.original} />;
       }
     }
   ];

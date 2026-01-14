@@ -20,7 +20,10 @@ interface ResourcesListRes {
 }
 
 const getResourcesList = (params: ResourcesListParams) => {
-  return request.post<ResourcesListRes>('/api/admin/resources', params);
+  return request.get<ResourcesListRes>('/api/admin/resources', {
+    params,
+    showErrorToast: true
+  });
 };
 
 export { getResourcesList, type ResourcesListRes, type ResourcesListItem };

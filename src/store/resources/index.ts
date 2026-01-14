@@ -9,10 +9,7 @@ import {
 } from '@/store/base';
 
 interface ResourcesStore
-  extends BaseTableSlice<ResourcesListItem>, BasePaginationSlice {
-  hasMore: boolean;
-  setHasMore: (hasMore: boolean) => void;
-}
+  extends BaseTableSlice<ResourcesListItem>, BasePaginationSlice {}
 
 const useResourcesStore = create<ResourcesStore>()(
   devtools(

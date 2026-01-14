@@ -4,7 +4,11 @@ import Logo from '@/components/custom/logo';
 import { useForm, useWatch } from 'react-hook-form';
 import { LineShadowText } from '@/components/ui/line-shadow-text';
 import { Button } from '@/components/ui/button';
-import { LoginForm, schema, type LoginFormValues } from './login-form';
+import {
+  LoginForm,
+  schema,
+  type LoginFormValues
+} from '@/pages/login/login-form';
 import useCountDown from '@/hooks/use-count-down';
 import { useRequest } from 'ahooks';
 import { useAuthStore } from '@/store';

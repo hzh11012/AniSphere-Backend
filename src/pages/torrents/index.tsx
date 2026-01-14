@@ -1,12 +1,12 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import { DataTable } from '@/components/custom/data-table/data-table';
-import getColumns from '@/pages/resources/columns';
-import { useResourcesStore } from '@/store';
+import getColumns from '@/pages/torrents/columns';
+import { useTorrentsStore } from '@/store';
 import { useRequest } from 'ahooks';
-import { getResourcesList } from '@/apis';
-import DataTableSearch from '@/components/custom/data-table/data-table-search';
+import { getTorrentsList } from '@/apis';
 import DataTableRefresh from '@/components/custom/data-table/data-table-refresh';
+import AddDialog from '@/pages/torrents/add-dialog';
 
 const Index: React.FC = () => {
   const {
@@ -14,26 +14,30 @@ const Index: React.FC = () => {
     setInitialized,
     data,
     setData,
-    hasMore,
-    setHasMore,
-    keyword,
-    setKeyword,
+    total,
+    setTotal,
+    sorting,
+    setSorting,
+    sort,
+    order,
     page,
     pageSize,
     resetPagination,
     pagination,
     setPagination,
     sizes
-  } = useResourcesStore(
+  } = useTorrentsStore(
     useShallow(state => ({
       initialized: state.initialized,
       setInitialized: state.setInitialized,
       data: state.data,
       setData: state.setData,
-      hasMore: state.hasMore,
-      setHasMore: state.setHasMore,
-      keyword: state.keyword,
-      setKeyword: state.setKeyword,
+      total: state.total,
+      setTotal: state.setTotal,
+      sorting: state.sorting,
+      setSorting: state.setSorting,
+      sort: state.sort,
+      order: state.order,
       page: state.page,
       pageSize: state.pageSize,
       resetPagination: state.resetPagination,
@@ -48,37 +52,28 @@ const Index: React.FC = () => {
   useEffect(() => {
     return () => {
       resetPagination();
-      setHasMore(false);
+      setTotal(0);
       setInitialized(false);
       setData([]);
     };
   }, [resetPagination]);
 
-  const { run, loading, refresh, error } = useRequest(getResourcesList, {
+  const { run, loading, refresh, error } = useRequest(getTorrentsList, {
     loadingDelay: 150,
     debounceWait: 250,
     defaultParams: [{ page, pageSize }],
-    onSuccess: ({ items, hasMore }) => {
+    onSuccess: ({ items, total }) => {
       setData(items);
-      setHasMore(hasMore);
+      setTotal(total);
     },
     onFinally: () => {
       setInitialized(true);
     },
-    refreshDeps: [page, pageSize],
+    refreshDeps: [page, pageSize, sorting],
     refreshDepsAction: () => {
-      run({ page, keyword, pageSize });
+      run({ page, pageSize, order, sort });
     }
   });
-
-  const handleSearch = useCallback(
-    (keyword: string) => {
-      resetPagination();
-      setKeyword(keyword);
-      run({ page: 1, keyword, pageSize });
-    },
-    [resetPagination, setKeyword, run, pageSize]
-  );
 
   const isLoading = loading || !initialized;
 
@@ -88,15 +83,17 @@ const Index: React.FC = () => {
       columns={columns}
       loading={isLoading}
       pagination={pagination}
-      paginationConfig={{ mode: 'hasMore', hasMore }}
+      paginationConfig={{ mode: 'total', total }}
       onPaginationChange={setPagination}
+      sorting={sorting}
+      onSortingChange={setSorting}
       sizes={sizes}
       error={!!error}
       toolbar={
         <>
-          <DataTableSearch
-            onSearch={handleSearch}
-            disabled={isLoading}
+          <AddDialog
+            disabled={loading}
+            onRefresh={refresh}
           />
           <DataTableRefresh
             onRefresh={refresh}

@@ -98,9 +98,7 @@ function DataTablePagination<TData>({
         <PaginationContent>
           <PaginationItem>
             <Button
-              variant='outline'
-              size='icon'
-              className='size-9'
+              variant='icon'
               onClick={() => table.previousPage()}
               disabled={disabled || !canPreviousPage}
             >
@@ -114,7 +112,7 @@ function DataTablePagination<TData>({
                 <PaginationEllipsis />
               ) : (
                 <PaginationLink
-                  className={cn('cursor-pointer size-9', {
+                  className={cn('cursor-pointer size-9 hover:bg-accent', {
                     'pointer-events-none': disabled || currentPage === page
                   })}
                   onClick={() => table.setPageIndex(Number(page) - 1)}
@@ -129,9 +127,7 @@ function DataTablePagination<TData>({
 
           <PaginationItem>
             <Button
-              variant='outline'
-              size='icon'
-              className='size-9'
+              variant='icon'
               onClick={() => table.nextPage()}
               disabled={disabled || !canNextPage}
             >

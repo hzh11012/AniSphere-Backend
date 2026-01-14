@@ -68,24 +68,31 @@ export const formatDate = (date: string) => {
 
 /**
  * 格式化文件大小
- * @param size 文件大小（KB）
+ * @param size 文件大小
+ * @param unit 单位，'byte' 或 'kb'，默认 'byte'
  */
-export const formatFileSize = (bytes: number) => {
-  if (bytes === 0) return '0 KB';
+export const formatFileSize = (size: number, unit: 'byte' | 'kb' = 'byte') => {
+  if (size === 0) return '0 B';
 
-  const MB = 1024;
+  // 如果单位是 KB，先转换为字节
+  const bytes = unit === 'kb' ? size * 1024 : size;
+
+  const KB = 1024;
+  const MB = KB * 1024;
   const GB = MB * 1024;
 
   const formatNumber = (num: number): string => {
-    const fixed = num.toFixed(1);
-    return fixed.endsWith('.0') ? Math.floor(num).toString() : fixed;
+    const fixed = num.toFixed(2);
+    return fixed.endsWith('.00') ? Math.floor(num).toString() : fixed;
   };
 
   if (bytes >= GB) {
     return formatNumber(bytes / GB) + ' GB';
   } else if (bytes >= MB) {
     return formatNumber(bytes / MB) + ' MB';
+  } else if (bytes >= KB) {
+    return formatNumber(bytes / KB) + ' KB';
   } else {
-    return formatNumber(bytes) + ' KB';
+    return formatNumber(bytes) + ' B';
   }
 };

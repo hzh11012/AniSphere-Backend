@@ -57,14 +57,14 @@ const links: NavItem[] = [
     isActive: true,
     items: [
       {
-        title: '种子检索',
+        title: '资源检索',
         icon: Sprout,
         url: '/resources'
       },
       {
-        title: '下载任务',
+        title: '种子记录',
         icon: Timer,
-        url: '/tasks'
+        url: '/torrents'
       }
     ]
   },

@@ -16,7 +16,7 @@ interface BaseTableState<TData> {
   type: string;
   keyword?: string;
   order?: string;
-  orderBy?: string;
+  sort?: string;
 }
 
 interface BaseTableActions<TData> {
@@ -28,7 +28,7 @@ interface BaseTableActions<TData> {
   setType: (type: string) => void;
   setKeyword: (keyword?: string) => void;
   setOrder: (order?: string) => void;
-  setOrderBy: (orderBy?: string) => void;
+  setSort: (sort?: string) => void;
 }
 
 type BaseTableSlice<TData> = BaseTableState<TData> & BaseTableActions<TData>;
@@ -56,7 +56,7 @@ const DEFAULT_TABLE_STATE = {
   type: 'name',
   keyword: undefined,
   order: undefined,
-  orderBy: undefined
+  sort: undefined
 } as const satisfies Omit<BaseTableState<unknown>, 'data'> & {
   data: unknown[];
 };
@@ -102,8 +102,8 @@ const createTableSlice = <
 
         return {
           sorting: nextSorting,
-          order: firstSort ? (firstSort.desc ? 'DESC' : 'ASC') : undefined,
-          orderBy: firstSort?.id
+          order: firstSort ? (firstSort.desc ? 'desc' : 'asc') : undefined,
+          sort: firstSort?.id
         } as Partial<TStore>;
       });
     },
@@ -111,7 +111,7 @@ const createTableSlice = <
     setType: type => set({ type } as Partial<TStore>),
     setKeyword: keyword => set({ keyword } as Partial<TStore>),
     setOrder: order => set({ order } as Partial<TStore>),
-    setOrderBy: orderBy => set({ orderBy } as Partial<TStore>)
+    setSort: sort => set({ sort } as Partial<TStore>)
   });
 };
 
@@ -150,6 +150,7 @@ const createPaginationSlice = <
 };
 
 export {
+  resolveUpdater,
   createTableSlice,
   createPaginationSlice,
   type BaseTableSlice,

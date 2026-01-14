@@ -92,7 +92,7 @@ const CodeDialog: React.FC<CodeDialogProps> = ({
             </InputOTPGroup>
           </InputOTP>
         </div>
-        <DialogFooter className='sm:justify-center'>
+        <DialogFooter>
           <Button
             className='max-w-75 w-full'
             onClick={handleSendCode}
@@ -105,4 +105,5 @@ const CodeDialog: React.FC<CodeDialogProps> = ({
     </Dialog>
   );
 };
+
 export default CodeDialog;
