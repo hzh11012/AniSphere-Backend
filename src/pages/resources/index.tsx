@@ -52,7 +52,7 @@ const Index: React.FC = () => {
       setInitialized(false);
       setData([]);
     };
-  }, [resetPagination]);
+  }, [resetPagination, setHasMore, setInitialized, setData]);
 
   const { run, loading, refresh, error } = useRequest(getResourcesList, {
     loadingDelay: 150,

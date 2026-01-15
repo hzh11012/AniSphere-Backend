@@ -11,7 +11,7 @@ type QbitStatusType =
   | 'warning'
   | 'destructive'
   | 'default'
-  | 'secondary';
+  | 'muted';
 
 interface QbitStatusConfig {
   label: string;
@@ -45,23 +45,20 @@ export const qbitStatusMap: Record<string, QbitStatusConfig> = {
   'stalledDL': { label: '等待连接', type: 'warning' }, // 下载中但无连接
   'checkingDL': { label: '校验中', type: 'warning' }, // 下载时校验
 
-  // 其他状态 - 灰色 (secondary)
-  'allocating': { label: '分配空间', type: 'secondary' },
-  'checkingResumeData': { label: '检查数据', type: 'secondary' },
-  'moving': { label: '移动中', type: 'secondary' },
-  'unknown': { label: '未知', type: 'secondary' }
+  // 其他状态 - 灰色 (muted)
+  'allocating': { label: '分配空间', type: 'muted' },
+  'checkingResumeData': { label: '检查数据', type: 'muted' },
+  'moving': { label: '移动中', type: 'muted' },
+  'unknown': { label: '未知', type: 'muted' }
 };
 
 const getColumns = () => {
   const columns: ColumnDef<TorrentsListItem>[] = [
     {
       accessorKey: 'name',
-      meta: {
-        title: '种子名称'
-      },
       header: () => {
         return (
-          <div className='flex items-center space-x-1'>
+          <div className='flex items-center gap-1'>
             <span>种子名称</span>
             <Search className='size-3.5' />
           </div>
@@ -91,7 +88,7 @@ const getColumns = () => {
         const status = row.original.status;
         const config = qbitStatusMap[status] || {
           label: '未知',
-          type: 'secondary'
+          type: 'muted'
         };
         return <Badge variant={config.type}>{config.label}</Badge>;
       }

@@ -56,7 +56,7 @@ const Index: React.FC = () => {
       setInitialized(false);
       setData([]);
     };
-  }, [resetPagination]);
+  }, [resetPagination, setTotal, setInitialized, setData]);
 
   const { run, loading, refresh, error } = useRequest(getTorrentsList, {
     loadingDelay: 150,

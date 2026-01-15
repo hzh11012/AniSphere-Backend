@@ -8,6 +8,7 @@ import {
   ListVideo,
   MessageCircle,
   MessageSquareText,
+  ScanSearch,
   Settings,
   Sparkles,
   Sprout,
@@ -58,13 +59,18 @@ const links: NavItem[] = [
     items: [
       {
         title: '资源检索',
-        icon: Sprout,
+        icon: ScanSearch,
         url: '/resources'
       },
       {
         title: '种子记录',
-        icon: Timer,
+        icon: Sprout,
         url: '/torrents'
+      },
+      {
+        title: '视频任务',
+        icon: Timer,
+        url: '/tasks'
       }
     ]
   },

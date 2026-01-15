@@ -17,12 +17,9 @@ const getColumns = () => {
     },
     {
       accessorKey: 'title',
-      meta: {
-        title: '资源名称'
-      },
       header: () => {
         return (
-          <div className='flex items-center space-x-1'>
+          <div className='flex items-center gap-1'>
             <span>资源名称</span>
             <Search className='size-3.5' />
           </div>
