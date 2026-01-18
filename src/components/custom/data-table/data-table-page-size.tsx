@@ -1,4 +1,3 @@
-// src/components/custom/data-table/data-table-page-size.tsx
 import {
   Select,
   SelectContent,

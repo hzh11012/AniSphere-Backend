@@ -15,6 +15,7 @@ interface TasksListItem {
   needsTranscode: boolean;
   status: string;
   errorMessage: string | null;
+  transcodeProgress: number;
   createdAt: string;
 }
 
@@ -24,6 +25,10 @@ interface TasksListRes {
 }
 
 interface TranscodeParams {
+  id: number;
+}
+
+interface DeleteTaskParams {
   id: number;
 }
 
@@ -49,10 +54,19 @@ const cancelTranscode = (params: TranscodeParams) => {
   });
 };
 
+const deleteTask = (params: DeleteTaskParams) => {
+  const { id } = params;
+  return request.delete(`/api/admin/tasks/${id}`, {
+    showErrorToast: true,
+    showSuccessToast: true
+  });
+};
+
 export {
   getTasksList,
   startTranscode,
   cancelTranscode,
+  deleteTask,
   type TasksListRes,
   type TasksListItem
 };

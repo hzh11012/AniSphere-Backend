@@ -4,6 +4,12 @@ import { formatDate, formatFileSize } from '@/lib/utils';
 import type { ColumnDef } from '@tanstack/react-table';
 import { Search } from 'lucide-react';
 import RowActions from '@/pages/tasks/row-actions';
+import { Progress } from '@/components/ui/progress';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger
+} from '@/components/ui/tooltip';
 
 type TaskStatusType =
   | 'success'
@@ -25,7 +31,7 @@ export const taskStatusMap: Record<string, TaskStatusConfig> = {
   'failed': { label: '失败', type: 'destructive' }
 };
 
-const getColumns = () => {
+const getColumns = (onRefresh: () => void) => {
   const columns: ColumnDef<TasksListItem>[] = [
     {
       accessorKey: 'filename',
@@ -45,8 +51,28 @@ const getColumns = () => {
       accessorKey: 'status',
       header: '状态',
       cell: ({ row }) => {
-        const status = row.original.status;
+        const { status, transcodeProgress, errorMessage } = row.original;
         const config = taskStatusMap[status];
+        if (status === 'transcoding' || status === 'failed') {
+          return (
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Badge variant={config.type}>{config.label}</Badge>
+              </TooltipTrigger>
+              <TooltipContent className='max-w-80'>
+                {status === 'transcoding' ? (
+                  <Progress
+                    className='w-48'
+                    value={transcodeProgress}
+                  />
+                ) : (
+                  errorMessage
+                )}
+              </TooltipContent>
+            </Tooltip>
+          );
+        }
+
         return <Badge variant={config.type}>{config.label}</Badge>;
       }
     },
@@ -70,7 +96,12 @@ const getColumns = () => {
       id: 'actions',
       header: '操作',
       cell: ({ row }) => {
-        return <RowActions row={row.original} />;
+        return (
+          <RowActions
+            row={row.original}
+            onRefresh={onRefresh}
+          />
+        );
       }
     }
   ];

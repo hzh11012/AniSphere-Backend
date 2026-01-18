@@ -51,8 +51,6 @@ const Index: React.FC = () => {
     }))
   );
 
-  const columns = useMemo(() => getColumns(), []);
-
   useEffect(() => {
     return () => {
       resetPagination();
@@ -78,6 +76,14 @@ const Index: React.FC = () => {
       run({ page, pageSize, order, keyword, sort });
     }
   });
+
+  const columns = useMemo(
+    () =>
+      getColumns(() => {
+        refresh();
+      }),
+    [refresh]
+  );
 
   const handleSearch = useCallback(
     (keyword: string) => {
