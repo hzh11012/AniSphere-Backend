@@ -20,7 +20,7 @@ interface TorrentsListRes {
   total: number;
 }
 
-interface addTorrentsBody {
+interface AddTorrentsBody {
   torrentUrl: string;
 }
 
@@ -31,7 +31,7 @@ const getTorrentsList = (params: TorrentsListParams) => {
   });
 };
 
-const addTorrents = (body: addTorrentsBody) => {
+const addTorrents = (body: AddTorrentsBody) => {
   return request.post('/api/admin/torrents', body, {
     showSuccessToast: true,
     showErrorToast: true
