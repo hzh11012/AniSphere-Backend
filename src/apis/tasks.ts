@@ -62,11 +62,20 @@ const deleteTask = (params: DeleteTaskParams) => {
   });
 };
 
+const retryTask = (params: TranscodeParams) => {
+  const { id } = params;
+  return request.post(`/api/admin/transcodes/${id}/retry`, null, {
+    showErrorToast: true,
+    showSuccessToast: true
+  });
+};
+
 export {
   getTasksList,
   startTranscode,
   cancelTranscode,
   deleteTask,
+  retryTask,
   type TasksListRes,
   type TasksListItem
 };

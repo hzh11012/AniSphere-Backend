@@ -1,7 +1,7 @@
 import React, { memo, useCallback, useState } from 'react';
 import { useRequest } from 'ahooks';
 import { addTorrents, type ResourcesListItem } from '@/apis';
-import DataTableActionDialog from '@/components/custom/data-table/data-table-action-dialog';
+import { DataTableActionDialog } from '@/components/custom/data-table/data-table-action-dialog';
 
 interface RowActionsProps<T> {
   row: T;

@@ -4,24 +4,22 @@ import {
   startTranscode,
   cancelTranscode,
   deleteTask,
-  type TasksListItem
+  type TasksListItem,
+  retryTask
 } from '@/apis';
-import DataTableActionDialog from '@/components/custom/data-table/data-table-action-dialog';
+import {
+  DataTableActionDialog,
+  type ActionDialogProps
+} from '@/components/custom/data-table/data-table-action-dialog';
 
 interface RowActionsProps<T> {
   row: T;
   onRefresh: () => void;
 }
 
-interface DownloadDialogProps {
-  id: number;
-  onRefresh: () => void;
-}
-
-interface DeleteDialogProps {
-  id: number;
-  onRefresh: () => void;
-}
+interface DownloadDialogProps extends ActionDialogProps {}
+interface DeleteDialogProps extends ActionDialogProps {}
+interface RetryDialogProps extends ActionDialogProps {}
 
 interface ScrapeAnimeDialogProps {}
 
@@ -118,6 +116,34 @@ const DeleteDialog: React.FC<DeleteDialogProps> = memo(({ id, onRefresh }) => {
   );
 });
 
+const RetryDialog: React.FC<RetryDialogProps> = memo(({ id, onRefresh }) => {
+  const [open, setOpen] = useState(false);
+
+  const { run, loading } = useRequest(retryTask, {
+    manual: true,
+    loadingDelay: 150,
+    debounceWait: 250,
+    onSuccess() {
+      setOpen(false);
+      onRefresh();
+    }
+  });
+
+  const handleClick = useCallback(() => run({ id }), [run, id]);
+
+  return (
+    <DataTableActionDialog
+      open={open}
+      onOpenChange={setOpen}
+      text='重试'
+      title='重试转码'
+      description='此操作将重新启动ffmpeg进行转码。 请确认是否继续?'
+      onClick={handleClick}
+      disabled={loading}
+    />
+  );
+});
+
 const RowActions: React.FC<RowActionsProps<TasksListItem>> = ({
   row,
   onRefresh
@@ -134,6 +160,12 @@ const RowActions: React.FC<RowActionsProps<TasksListItem>> = ({
       )}
       {status === 'transcoding' && (
         <CancelTranscodeDialog
+          id={id}
+          onRefresh={onRefresh}
+        />
+      )}
+      {status === 'failed' && (
+        <RetryDialog
           id={id}
           onRefresh={onRefresh}
         />

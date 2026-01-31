@@ -13,6 +13,11 @@ import {
 import { cn } from '@/lib/utils';
 import { Info } from 'lucide-react';
 
+interface ActionDialogProps {
+  id: number;
+  onRefresh: () => void;
+}
+
 interface DataTableActionDialogProps {
   /** 是否打开 */
   open: boolean;
@@ -100,4 +105,4 @@ const DataTableActionDialog: React.FC<DataTableActionDialogProps> = memo(
 
 DataTableActionDialog.displayName = 'DataTableActionDialog';
 
-export default DataTableActionDialog;
+export { DataTableActionDialog, type ActionDialogProps };
