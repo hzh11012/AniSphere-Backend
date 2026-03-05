@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import { ChevronsUpDown, LogOut } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
@@ -33,7 +33,7 @@ interface UserInfoProps {
   showIcon?: boolean;
 }
 
-const UserInfo: React.FC<UserInfoProps> = memo(({ user, showIcon }) => (
+const UserInfo: React.FC<UserInfoProps> = ({ user, showIcon }) => (
   <>
     <Avatar className='size-8 rounded-lg'>
       <AvatarImage
@@ -50,9 +50,9 @@ const UserInfo: React.FC<UserInfoProps> = memo(({ user, showIcon }) => (
     </div>
     {showIcon && <ChevronsUpDown className='ml-auto size-4' />}
   </>
-));
+);
 
-const NavUser: React.FC<NavUserProps> = memo(({ user, onLogout }) => {
+const NavUser: React.FC<NavUserProps> = ({ user, onLogout }) => {
   const { isMobile } = useSidebar();
 
   return (
@@ -92,6 +92,6 @@ const NavUser: React.FC<NavUserProps> = memo(({ user, onLogout }) => {
       </SidebarMenuItem>
     </SidebarMenu>
   );
-});
+};
 
 export default NavUser;

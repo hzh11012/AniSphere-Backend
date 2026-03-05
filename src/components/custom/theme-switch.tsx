@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
 import { Moon, Sun } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -7,7 +7,7 @@ interface ThemeSwitchProps {
   className?: string;
 }
 
-const ThemeSwitch: React.FC<ThemeSwitchProps> = memo(({ className }) => {
+const ThemeSwitch: React.FC<ThemeSwitchProps> = ({ className }) => {
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -27,7 +27,7 @@ const ThemeSwitch: React.FC<ThemeSwitchProps> = memo(({ className }) => {
       {isDark ? <Sun size={22} /> : <Moon size={22} />}
     </div>
   );
-});
+};
 
 ThemeSwitch.displayName = 'ThemeSwitch';
 

@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { useRequest } from 'ahooks';
 import { addTorrents, type ResourcesListItem } from '@/apis';
 import { DataTableActionDialog } from '@/components/custom/data-table/data-table-action-dialog';
@@ -11,7 +11,7 @@ interface DownloadDialogProps {
   url: string;
 }
 
-const DownloadDialog: React.FC<DownloadDialogProps> = memo(({ url }) => {
+const DownloadDialog: React.FC<DownloadDialogProps> = ({ url }) => {
   const [open, setOpen] = useState(false);
 
   const { run, loading } = useRequest(addTorrents, {
@@ -23,7 +23,7 @@ const DownloadDialog: React.FC<DownloadDialogProps> = memo(({ url }) => {
     }
   });
 
-  const handleClick = useCallback(() => run({ torrentUrl: url }), [run, url]);
+  const handleClick = () => run({ torrentUrl: url });
 
   return (
     <DataTableActionDialog
@@ -36,7 +36,7 @@ const DownloadDialog: React.FC<DownloadDialogProps> = memo(({ url }) => {
       disabled={loading}
     />
   );
-});
+};
 
 const RowActions: React.FC<RowActionsProps<ResourcesListItem>> = ({ row }) => {
   const { magnet } = row;

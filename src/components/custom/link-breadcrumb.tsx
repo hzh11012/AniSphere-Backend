@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from 'react';
+import React from 'react';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -16,14 +16,11 @@ interface LinkBreadcrumbProps {
   items: NavItem[];
 }
 
-const LinkBreadcrumb: React.FC<LinkBreadcrumbProps> = memo(({ items }) => {
+const LinkBreadcrumb: React.FC<LinkBreadcrumbProps> = ({ items }) => {
   const { pathname } = useLocation();
   const isMobile = useIsMobile();
-  const title = useMemo(
-    () => getTitleByPath(items, pathname),
-    [items, pathname]
-  );
-  const homeTitle = useMemo(() => getTitleByPath(items, '/'), [items]);
+  const title = getTitleByPath(items, pathname);
+  const homeTitle = getTitleByPath(items, '/');
 
   const isHomePage = pathname === '/';
 
@@ -48,7 +45,7 @@ const LinkBreadcrumb: React.FC<LinkBreadcrumbProps> = memo(({ items }) => {
       </BreadcrumbList>
     </Breadcrumb>
   );
-});
+};
 
 LinkBreadcrumb.displayName = 'LinkBreadcrumb';
 

@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { cn } from '@/lib/utils';
 import { RingLoader } from 'react-spinners';
 
@@ -7,7 +6,7 @@ interface loadingProps {
   size?: number;
 }
 
-const Loading: React.FC<loadingProps> = memo(({ className, size = 50 }) => {
+const Loading: React.FC<loadingProps> = ({ className, size = 50 }) => {
   return (
     <div
       className={cn(
@@ -23,7 +22,7 @@ const Loading: React.FC<loadingProps> = memo(({ className, size = 50 }) => {
       />
     </div>
   );
-});
+};
 
 Loading.displayName = 'Loading';
 

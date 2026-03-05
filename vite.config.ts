@@ -3,13 +3,19 @@ import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 import svgr from 'vite-plugin-svgr';
+import { visualizer } from 'rollup-plugin-visualizer';
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
-    react(),
+    react({
+      babel: {
+        plugins: [['babel-plugin-react-compiler', {}]]
+      }
+    }),
     tailwindcss(),
-    svgr({ include: './src/assets/*.svg?react' })
+    svgr({ include: './src/assets/*.svg?react' }),
+    visualizer({ open: true, gzipSize: true, filename: 'stats.html' })
   ],
   resolve: {
     alias: {
@@ -18,8 +24,8 @@ export default defineConfig({
   },
   server: {
     // 这里配置了代理，需要配合后端的set-cookie的domain
-    host: '0.0.0.0',
-    port: 5000,
+    host: 'localhost.qnets.cn',
+    port: 5900,
     proxy: {
       '/api': {
         target: 'http://127.0.0.1:3000',

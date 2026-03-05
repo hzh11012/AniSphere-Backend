@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Logo from '@/components/custom/logo';
 import { useForm, useWatch } from 'react-hook-form';
@@ -57,39 +57,34 @@ const Login: React.FC = () => {
   });
   const email = useWatch({ control: form.control, name: 'email' });
 
-  const handleSendCode = useCallback(
-    (email: string) => {
-      !isDisable && onSendCode(email);
-      setOpen(true);
-    },
-    [isDisable, onSendCode]
-  );
+  const handleSendCode = (email: string) => {
+    !isDisable && onSendCode(email);
+    setOpen(true);
+  };
 
-  const handleLogin = useCallback(
-    async (email: string, code: string, setCode: (code: string) => void) => {
-      try {
-        const user = await onLogin(email, code);
-        if (user.role !== 'admin') {
-          toast.error('权限不足');
-          setCode('');
-          return;
-        }
-        setUser(user);
-        setInitialized(true);
-      } catch {
+  const handleLogin = async (
+    email: string,
+    code: string,
+    setCode: (code: string) => void
+  ) => {
+    try {
+      const user = await onLogin(email, code);
+      if (user.role !== 'admin') {
+        toast.error('权限不足');
         setCode('');
+        return;
       }
-    },
-    [onLogin]
-  );
+      setUser(user);
+      setInitialized(true);
+    } catch {
+      setCode('');
+    }
+  };
 
-  const handleSubmit = useCallback(
-    (values: LoginFormValues) => {
-      const { email } = values;
-      handleSendCode(email);
-    },
-    [handleSendCode]
-  );
+  const handleSubmit = (values: LoginFormValues) => {
+    const { email } = values;
+    handleSendCode(email);
+  };
 
   return (
     <div className='flex items-center justify-center size-full overflow-auto scrollbar-hide select-none'>

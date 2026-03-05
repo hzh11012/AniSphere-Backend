@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import { DataTable } from '@/components/custom/data-table/data-table';
 import getColumns from '@/pages/torrents/columns';
@@ -47,7 +47,7 @@ const Index: React.FC = () => {
     }))
   );
 
-  const columns = useMemo(() => getColumns(), []);
+  const columns = getColumns();
 
   useEffect(() => {
     return () => {

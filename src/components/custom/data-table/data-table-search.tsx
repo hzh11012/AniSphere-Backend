@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Input } from '@/components/ui/input';
 import {
   Select,
@@ -32,14 +32,11 @@ const DataTableSearch: React.FC<DataTableSearchProps> = ({
   onSearch,
   onSelect
 }) => {
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === 'Enter') {
-        onSearch(e.currentTarget.value);
-      }
-    },
-    [onSearch]
-  );
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      onSearch(e.currentTarget.value);
+    }
+  };
 
   return (
     <>

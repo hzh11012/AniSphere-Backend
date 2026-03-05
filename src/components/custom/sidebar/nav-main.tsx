@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from 'react';
+import React from 'react';
 import { ChevronRight } from 'lucide-react';
 import {
   Collapsible,
@@ -22,7 +22,7 @@ interface NavMainProps {
 }
 
 // 有子菜单的导航项
-const NavItemWithSub: React.FC<{ item: NavItem }> = memo(({ item }) => (
+const NavItemWithSub: React.FC<{ item: NavItem }> = ({ item }) => (
   <Collapsible
     asChild
     defaultOpen={item.isActive}
@@ -55,10 +55,10 @@ const NavItemWithSub: React.FC<{ item: NavItem }> = memo(({ item }) => (
       </CollapsibleContent>
     </SidebarMenuItem>
   </Collapsible>
-));
+);
 
 // 无子菜单的导航项
-const NavItemSimple: React.FC<{ item: NavItem }> = memo(({ item }) => (
+const NavItemSimple: React.FC<{ item: NavItem }> = ({ item }) => (
   <SidebarMenuItem>
     <SidebarMenuButton
       tooltip={item.title}
@@ -70,25 +70,21 @@ const NavItemSimple: React.FC<{ item: NavItem }> = memo(({ item }) => (
       </Link>
     </SidebarMenuButton>
   </SidebarMenuItem>
-));
+);
 
-const NavMain: React.FC<NavMainProps> = memo(({ items }) => {
-  const renderedItems = useMemo(
-    () =>
-      items.map(item =>
-        item.items ? (
-          <NavItemWithSub
-            key={item.title}
-            item={item}
-          />
-        ) : (
-          <NavItemSimple
-            key={item.title}
-            item={item}
-          />
-        )
-      ),
-    [items]
+const NavMain: React.FC<NavMainProps> = ({ items }) => {
+  const renderedItems = items.map(item =>
+    item.items ? (
+      <NavItemWithSub
+        key={item.title}
+        item={item}
+      />
+    ) : (
+      <NavItemSimple
+        key={item.title}
+        item={item}
+      />
+    )
   );
 
   return (
@@ -96,6 +92,6 @@ const NavMain: React.FC<NavMainProps> = memo(({ items }) => {
       <SidebarMenu>{renderedItems}</SidebarMenu>
     </SidebarGroup>
   );
-});
+};
 
 export default NavMain;

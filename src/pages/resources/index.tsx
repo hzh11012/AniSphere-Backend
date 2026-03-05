@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import { DataTable } from '@/components/custom/data-table/data-table';
 import getColumns from '@/pages/resources/columns';
@@ -43,7 +43,7 @@ const Index: React.FC = () => {
     }))
   );
 
-  const columns = useMemo(() => getColumns(), []);
+  const columns = getColumns();
 
   useEffect(() => {
     return () => {
@@ -71,14 +71,11 @@ const Index: React.FC = () => {
     }
   });
 
-  const handleSearch = useCallback(
-    (keyword: string) => {
-      resetPagination();
-      setKeyword(keyword);
-      run({ page: 1, keyword, pageSize });
-    },
-    [resetPagination, setKeyword, run, pageSize]
-  );
+  const handleSearch = (keyword: string) => {
+    resetPagination();
+    setKeyword(keyword);
+    run({ page: 1, keyword, pageSize });
+  };
 
   const isLoading = loading || !initialized;
 

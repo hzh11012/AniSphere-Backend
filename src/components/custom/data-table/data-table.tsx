@@ -1,7 +1,5 @@
 import {
-  useCallback,
   useEffect,
-  useMemo,
   useRef,
   useState,
   type CSSProperties,
@@ -18,8 +16,6 @@ import {
 import {
   flexRender,
   getCoreRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
   useReactTable,
   type Column,
   type ColumnDef,
@@ -154,18 +150,13 @@ const DataTable = <TData, TValue>({
   const tableContainerRef = useRef<HTMLTableElement>(null);
   const [isLeftStart, setIsLeftStart] = useState(false);
   const [isRightEnd, setIsRightEnd] = useState(false);
-  const stableColumns = useMemo(() => columns, [columns]);
-  const stableData = useMemo(() => data, [data]);
 
   /** 计算分页信息 */
-  const paginationInfo = useMemo(
-    () => getPaginationInfo(paginationConfig, pagination),
-    [paginationConfig, pagination]
-  );
+  const paginationInfo = getPaginationInfo(paginationConfig, pagination);
 
   const table = useReactTable({
-    data: stableData,
-    columns: stableColumns,
+    data,
+    columns,
     pageCount: paginationInfo.pageCount ?? -1,
     state: { pagination, sorting, columnFilters },
     manualPagination: true,
@@ -183,25 +174,22 @@ const DataTable = <TData, TValue>({
   });
 
   /** 获取固定列样式 */
-  const getPinningStyles = useCallback(
-    (column: Column<TData, TValue>): CSSProperties => {
-      const isPinned = column.getIsPinned();
-      const styles: CSSProperties = {
-        position: isPinned ? 'sticky' : 'relative',
-        width: column.getSize(),
-        zIndex: isPinned ? 1 : 0
-      };
+  const getPinningStyles = (column: Column<TData, TValue>): CSSProperties => {
+    const isPinned = column.getIsPinned();
+    const styles: CSSProperties = {
+      position: isPinned ? 'sticky' : 'relative',
+      width: column.getSize(),
+      zIndex: isPinned ? 1 : 0
+    };
 
-      if (isPinned === 'left') {
-        styles.left = `${column.getStart('left')}px`;
-      } else if (isPinned === 'right') {
-        styles.right = `${column.getAfter('right')}px`;
-      }
+    if (isPinned === 'left') {
+      styles.left = `${column.getStart('left')}px`;
+    } else if (isPinned === 'right') {
+      styles.right = `${column.getAfter('right')}px`;
+    }
 
-      return styles;
-    },
-    []
-  );
+    return styles;
+  };
 
   const { run: handleScroll } = useThrottleFn(
     () => {
@@ -228,70 +216,66 @@ const DataTable = <TData, TValue>({
   }, [handleScroll]);
 
   /** 渲染表头单元格 */
-  const renderHeaderCell = useCallback(
-    (header: ReturnType<typeof table.getHeaderGroups>[0]['headers'][0]) => {
-      const { id, colSpan, column, isPlaceholder } = header;
-      const isPinned = column.getIsPinned();
-      const isLastLeftPinned =
-        isPinned === 'left' && column.getIsLastColumn('left');
-      const isFirstRightPinned =
-        isPinned === 'right' && column.getIsFirstColumn('right');
+  const renderHeaderCell = (
+    header: ReturnType<typeof table.getHeaderGroups>[0]['headers'][0]
+  ) => {
+    const { id, colSpan, column, isPlaceholder } = header;
+    const isPinned = column.getIsPinned();
+    const isLastLeftPinned =
+      isPinned === 'left' && column.getIsLastColumn('left');
+    const isFirstRightPinned =
+      isPinned === 'right' && column.getIsFirstColumn('right');
 
-      return (
-        <TableHead
-          key={id}
-          colSpan={colSpan}
-          className={cn(
-            'relative h-9 px-3 select-none border-y text-nowrap bg-card',
-            {
-              'shadow-l-fixed': isFirstRightPinned && !isRightEnd,
-              'shadow-r-fixed': isLastLeftPinned && !isLeftStart
-            }
-          )}
-          style={getPinningStyles(column as Column<TData, TValue>)}
-          data-pinned={isPinned || undefined}
-        >
-          {!isPlaceholder &&
-            flexRender(column.columnDef.header, header.getContext())}
-        </TableHead>
-      );
-    },
-    [getPinningStyles, isLeftStart, isRightEnd]
-  );
-
-  /** 渲染数据单元格 */
-  const renderDataCell = useCallback(
-    (
-      cell: ReturnType<
-        ReturnType<typeof table.getRowModel>['rows'][0]['getVisibleCells']
-      >[0]
-    ) => {
-      const { id, column } = cell;
-      const isPinned = column.getIsPinned();
-      const isLastLeftPinned =
-        isPinned === 'left' && column.getIsLastColumn('left');
-      const isFirstRightPinned =
-        isPinned === 'right' && column.getIsFirstColumn('right');
-
-      return (
-        <TableCell
-          key={id}
-          className={cn('text-nowrap p-3 bg-background leading-8', {
+    return (
+      <TableHead
+        key={id}
+        colSpan={colSpan}
+        className={cn(
+          'relative h-9 px-3 select-none border-y text-nowrap bg-card',
+          {
             'shadow-l-fixed': isFirstRightPinned && !isRightEnd,
             'shadow-r-fixed': isLastLeftPinned && !isLeftStart
-          })}
-          style={getPinningStyles(column as Column<TData, TValue>)}
-          data-pinned={isPinned || undefined}
-        >
-          {flexRender(column.columnDef.cell, cell.getContext())}
-        </TableCell>
-      );
-    },
-    [getPinningStyles, isLeftStart, isRightEnd]
-  );
+          }
+        )}
+        style={getPinningStyles(column as Column<TData, TValue>)}
+        data-pinned={isPinned || undefined}
+      >
+        {!isPlaceholder &&
+          flexRender(column.columnDef.header, header.getContext())}
+      </TableHead>
+    );
+  };
+
+  /** 渲染数据单元格 */
+  const renderDataCell = (
+    cell: ReturnType<
+      ReturnType<typeof table.getRowModel>['rows'][0]['getVisibleCells']
+    >[0]
+  ) => {
+    const { id, column } = cell;
+    const isPinned = column.getIsPinned();
+    const isLastLeftPinned =
+      isPinned === 'left' && column.getIsLastColumn('left');
+    const isFirstRightPinned =
+      isPinned === 'right' && column.getIsFirstColumn('right');
+
+    return (
+      <TableCell
+        key={id}
+        className={cn('text-nowrap p-3 bg-background leading-8', {
+          'shadow-l-fixed': isFirstRightPinned && !isRightEnd,
+          'shadow-r-fixed': isLastLeftPinned && !isLeftStart
+        })}
+        style={getPinningStyles(column as Column<TData, TValue>)}
+        data-pinned={isPinned || undefined}
+      >
+        {flexRender(column.columnDef.cell, cell.getContext())}
+      </TableCell>
+    );
+  };
 
   /** 渲染表格状态 */
-  const renderState = useCallback(() => {
+  const renderState = () => {
     const exceptionType = loading ? 'loading' : error ? 'error' : 'empty';
 
     return (
@@ -300,7 +284,7 @@ const DataTable = <TData, TValue>({
         className='h-36 md:h-48'
       />
     );
-  }, [loading, error]);
+  };
 
   return (
     <div

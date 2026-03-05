@@ -13,7 +13,7 @@ import {
   InputOTPSlot
 } from '@/components/ui/input-otp';
 import { REGEXP_ONLY_DIGITS } from 'input-otp';
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 
 interface CodeDialogProps {
   email: string;
@@ -42,21 +42,18 @@ const CodeDialog: React.FC<CodeDialogProps> = ({
   const { count, isDisable } = countDown;
   const [code, setCode] = useState('');
 
-  const handleOpenChange = useCallback(
-    (open: boolean) => {
-      onOpenChange(open);
-      !open && setCode('');
-    },
-    [onOpenChange]
-  );
+  const handleOpenChange = (open: boolean) => {
+    onOpenChange(open);
+    !open && setCode('');
+  };
 
-  const handleComplete = useCallback(async () => {
+  const handleComplete = async () => {
     await onComplete(email, code, setCode);
-  }, [email, code, onComplete]);
+  };
 
-  const handleSendCode = useCallback(() => {
+  const handleSendCode = () => {
     onSend(email);
-  }, [email, onSend]);
+  };
 
   return (
     <Dialog

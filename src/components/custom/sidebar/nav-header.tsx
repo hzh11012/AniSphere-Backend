@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import {
   SidebarMenu,
   SidebarMenuButton,
@@ -7,7 +6,7 @@ import {
 import Logo from '../logo';
 import { LineShadowText } from '@/components/ui/line-shadow-text';
 
-const NavHeader = memo(() => {
+const NavHeader = () => {
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -37,6 +36,6 @@ const NavHeader = memo(() => {
       </SidebarMenuItem>
     </SidebarMenu>
   );
-});
+};
 
 export default NavHeader;

@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { useRequest } from 'ahooks';
 import {
   startTranscode,
@@ -23,71 +23,73 @@ interface RetryDialogProps extends ActionDialogProps {}
 
 interface ScrapeAnimeDialogProps {}
 
-const TranscodeDialog: React.FC<DownloadDialogProps> = memo(
-  ({ id, onRefresh }) => {
-    const [open, setOpen] = useState(false);
+const TranscodeDialog: React.FC<DownloadDialogProps> = ({
+  id,
+  onRefresh
+}) => {
+  const [open, setOpen] = useState(false);
 
-    const { run, loading } = useRequest(startTranscode, {
-      manual: true,
-      loadingDelay: 150,
-      debounceWait: 250,
-      onSuccess() {
-        setOpen(false);
-        onRefresh();
-      }
-    });
+  const { run, loading } = useRequest(startTranscode, {
+    manual: true,
+    loadingDelay: 150,
+    debounceWait: 250,
+    onSuccess() {
+      setOpen(false);
+      onRefresh();
+    }
+  });
 
-    const handleClick = useCallback(() => run({ id }), [run, id]);
+  const handleClick = () => run({ id });
 
-    return (
-      <DataTableActionDialog
-        open={open}
-        onOpenChange={setOpen}
-        text='转码'
-        title='确认转码'
-        description='此操作将启动ffmpeg进行转码。 请确认是否继续?'
-        onClick={handleClick}
-        disabled={loading}
-      />
-    );
-  }
-);
+  return (
+    <DataTableActionDialog
+      open={open}
+      onOpenChange={setOpen}
+      text='转码'
+      title='确认转码'
+      description='此操作将启动ffmpeg进行转码。 请确认是否继续?'
+      onClick={handleClick}
+      disabled={loading}
+    />
+  );
+};
 
-const CancelTranscodeDialog: React.FC<DownloadDialogProps> = memo(
-  ({ id, onRefresh }) => {
-    const [open, setOpen] = useState(false);
+const CancelTranscodeDialog: React.FC<DownloadDialogProps> = ({
+  id,
+  onRefresh
+}) => {
+  const [open, setOpen] = useState(false);
 
-    const { run, loading } = useRequest(cancelTranscode, {
-      manual: true,
-      loadingDelay: 150,
-      debounceWait: 250,
-      onSuccess() {
-        setOpen(false);
-        onRefresh();
-      }
-    });
+  const { run, loading } = useRequest(cancelTranscode, {
+    manual: true,
+    loadingDelay: 150,
+    debounceWait: 250,
+    onSuccess() {
+      setOpen(false);
+      onRefresh();
+    }
+  });
 
-    const handleClick = useCallback(() => run({ id }), [run, id]);
+  const handleClick = () => run({ id });
 
-    return (
-      <DataTableActionDialog
-        open={open}
-        onOpenChange={setOpen}
-        text='取消转码'
-        title='取消转码'
-        description='此操作将取消ffmpeg转码。 请确认是否继续?'
-        onClick={handleClick}
-        disabled={loading}
-      />
-    );
-  }
-);
+  return (
+    <DataTableActionDialog
+      open={open}
+      onOpenChange={setOpen}
+      text='取消转码'
+      title='取消转码'
+      description='此操作将取消ffmpeg转码。 请确认是否继续?'
+      onClick={handleClick}
+      disabled={loading}
+    />
+  );
+};
 
-const ScrapeAnimeDialog: React.FC<ScrapeAnimeDialogProps> = memo(({}) => {
+const ScrapeAnimeDialog: React.FC<ScrapeAnimeDialogProps> = ({}) => {
   return <div>刮削（TODO）</div>;
-});
+};
 
-const DeleteDialog: React.FC<DeleteDialogProps> = memo(({ id, onRefresh }) => {
+const DeleteDialog: React.FC<DeleteDialogProps> = ({ id, onRefresh }) => {
   const [open, setOpen] = useState(false);
 
   const { run, loading } = useRequest(deleteTask, {
@@ -100,7 +102,7 @@ const DeleteDialog: React.FC<DeleteDialogProps> = memo(({ id, onRefresh }) => {
     }
   });
 
-  const handleClick = useCallback(() => run({ id }), [run, id]);
+  const handleClick = () => run({ id });
 
   return (
     <DataTableActionDialog
@@ -114,9 +116,9 @@ const DeleteDialog: React.FC<DeleteDialogProps> = memo(({ id, onRefresh }) => {
       disabled={loading}
     />
   );
-});
+};
 
-const RetryDialog: React.FC<RetryDialogProps> = memo(({ id, onRefresh }) => {
+const RetryDialog: React.FC<RetryDialogProps> = ({ id, onRefresh }) => {
   const [open, setOpen] = useState(false);
 
   const { run, loading } = useRequest(retryTask, {
@@ -129,7 +131,7 @@ const RetryDialog: React.FC<RetryDialogProps> = memo(({ id, onRefresh }) => {
     }
   });
 
-  const handleClick = useCallback(() => run({ id }), [run, id]);
+  const handleClick = () => run({ id });
 
   return (
     <DataTableActionDialog
@@ -142,7 +144,7 @@ const RetryDialog: React.FC<RetryDialogProps> = memo(({ id, onRefresh }) => {
       disabled={loading}
     />
   );
-});
+};
 
 const RowActions: React.FC<RowActionsProps<TasksListItem>> = ({
   row,

@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import { Button } from '@/components/ui/button';
 import { RotateCw } from 'lucide-react';
 
@@ -9,19 +9,20 @@ interface DataTableRefreshProps {
   onRefresh: () => void;
 }
 
-const DataTableRefresh: React.FC<DataTableRefreshProps> = memo(
-  ({ disabled = false, onRefresh }) => {
-    return (
-      <Button
-        variant='icon'
-        onClick={onRefresh}
-        disabled={disabled}
-      >
-        <RotateCw />
-      </Button>
-    );
-  }
-);
+const DataTableRefresh: React.FC<DataTableRefreshProps> = ({
+  disabled = false,
+  onRefresh
+}) => {
+  return (
+    <Button
+      variant='icon'
+      onClick={onRefresh}
+      disabled={disabled}
+    >
+      <RotateCw />
+    </Button>
+  );
+};
 
 DataTableRefresh.displayName = 'DataTableRefresh';
 

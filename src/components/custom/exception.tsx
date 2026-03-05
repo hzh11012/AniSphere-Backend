@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import { cn } from '@/lib/utils';
 import NotFound from '@/assets/not-found.svg?react';
 import Ban from '@/assets/ban.svg?react';
@@ -12,32 +12,33 @@ interface ExceptionProps {
   className?: string;
 }
 
-const Exception: React.FC<ExceptionProps> = memo(
-  ({ type = 'not-found', className }) => {
-    return (
-      <div className={cn('size-full flex items-center justify-center')}>
-        {type === 'not-found' && (
-          <NotFound className={cn('w-full h-60 md:h-75', className)} />
-        )}
-        {type === 'ban' && (
-          <Ban className={cn('w-full h-60 md:h-75', className)} />
-        )}
-        {type === 'error' && (
-          <Error className={cn('w-full h-60 md:h-75', className)} />
-        )}
-        {type === 'offline' && (
-          <Offline className={cn('w-full h-60 md:h-75', className)} />
-        )}
-        {type === 'empty' && (
-          <Empty className={cn('w-full h-60 md:h-75', className)} />
-        )}
-        {type === 'loading' && (
-          <Loading className={cn('w-full h-60 md:h-75', className)} />
-        )}
-      </div>
-    );
-  }
-);
+const Exception: React.FC<ExceptionProps> = ({
+  type = 'not-found',
+  className
+}) => {
+  return (
+    <div className={cn('size-full flex items-center justify-center')}>
+      {type === 'not-found' && (
+        <NotFound className={cn('w-full h-60 md:h-75', className)} />
+      )}
+      {type === 'ban' && (
+        <Ban className={cn('w-full h-60 md:h-75', className)} />
+      )}
+      {type === 'error' && (
+        <Error className={cn('w-full h-60 md:h-75', className)} />
+      )}
+      {type === 'offline' && (
+        <Offline className={cn('w-full h-60 md:h-75', className)} />
+      )}
+      {type === 'empty' && (
+        <Empty className={cn('w-full h-60 md:h-75', className)} />
+      )}
+      {type === 'loading' && (
+        <Loading className={cn('w-full h-60 md:h-75', className)} />
+      )}
+    </div>
+  );
+};
 
 Exception.displayName = 'Exception';
 

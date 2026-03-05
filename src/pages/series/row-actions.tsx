@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { useRequest } from 'ahooks';
 import { deleteSeries, type SeriesListItem } from '@/apis';
 import {
@@ -13,7 +13,7 @@ interface RowActionsProps<T> {
 
 interface DeleteDialogProps extends ActionDialogProps {}
 
-const DeleteDialog: React.FC<DeleteDialogProps> = memo(({ id, onRefresh }) => {
+const DeleteDialog: React.FC<DeleteDialogProps> = ({ id, onRefresh }) => {
   const [open, setOpen] = useState(false);
 
   const { run, loading } = useRequest(deleteSeries, {
@@ -26,7 +26,7 @@ const DeleteDialog: React.FC<DeleteDialogProps> = memo(({ id, onRefresh }) => {
     }
   });
 
-  const handleClick = useCallback(() => run({ id }), [run, id]);
+  const handleClick = () => run({ id });
 
   return (
     <DataTableActionDialog
@@ -40,7 +40,7 @@ const DeleteDialog: React.FC<DeleteDialogProps> = memo(({ id, onRefresh }) => {
       disabled={loading}
     />
   );
-});
+};
 
 const RowActions: React.FC<RowActionsProps<SeriesListItem>> = ({
   row,

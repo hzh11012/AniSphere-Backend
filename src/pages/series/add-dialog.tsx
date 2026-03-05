@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Dialog,
   DialogClose,
@@ -20,7 +20,7 @@ interface AddDialogProps {
   onRefresh: () => void;
 }
 
-const AddDialog: React.FC<AddDialogProps> = memo(({ disabled, onRefresh }) => {
+const AddDialog: React.FC<AddDialogProps> = ({ disabled, onRefresh }) => {
   const [open, setOpen] = useState(false);
 
   const form = useForm<AddFormValues>({
@@ -84,6 +84,6 @@ const AddDialog: React.FC<AddDialogProps> = memo(({ disabled, onRefresh }) => {
       </DialogContent>
     </Dialog>
   );
-});
+};
 
 export default AddDialog;
