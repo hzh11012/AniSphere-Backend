@@ -111,6 +111,7 @@ const getPaginationInfo = (
   pageCount: number | undefined;
   canPreviousPage: boolean;
   canNextPage: boolean;
+  currentPage: number;
 } => {
   if (config.mode === 'total') {
     const pageCount =
@@ -118,14 +119,16 @@ const getPaginationInfo = (
     return {
       pageCount,
       canPreviousPage: pagination.pageIndex > 0,
-      canNextPage: pagination.pageIndex < pageCount - 1
+      canNextPage: pagination.pageIndex < pageCount - 1,
+      currentPage: pagination.pageIndex + 1
     };
   }
 
   return {
     pageCount: undefined, // 未知总页数
     canPreviousPage: pagination.pageIndex > 0,
-    canNextPage: config.hasMore
+    canNextPage: config.hasMore,
+    currentPage: pagination.pageIndex + 1
   };
 };
 
@@ -343,6 +346,7 @@ const DataTable = <TData, TValue>({
         <div className='flex items-center gap-6'>
           <DataTablePageSize
             table={table}
+            pageSize={pagination.pageSize}
             sizes={sizes}
             disabled={loading}
           />

@@ -18,6 +18,7 @@ interface DataTablePaginationProps<TData> {
     pageCount: number | undefined;
     canPreviousPage: boolean;
     canNextPage: boolean;
+    currentPage: number;
   };
   disabled?: boolean;
 }
@@ -49,8 +50,8 @@ function DataTablePagination<TData>({
   disabled = false
 }: DataTablePaginationProps<TData>) {
   const { mode } = paginationConfig;
-  const { canPreviousPage, canNextPage, pageCount } = paginationInfo;
-  const currentPage = table.getState().pagination.pageIndex + 1;
+  const { canPreviousPage, canNextPage, pageCount, currentPage } =
+    paginationInfo;
 
   // hasMore模式
   if (mode === 'hasMore') {

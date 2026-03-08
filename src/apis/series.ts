@@ -11,10 +11,6 @@ interface SeriesListParams {
 interface SeriesListItem {
   id: number;
   name: string;
-  anime: {
-    name: string;
-    season: number;
-  }[];
   createdAt: string;
 }
 

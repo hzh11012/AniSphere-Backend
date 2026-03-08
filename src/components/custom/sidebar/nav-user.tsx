@@ -4,6 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -59,34 +60,37 @@ const NavUser: React.FC<NavUserProps> = ({ user, onLogout }) => {
     <SidebarMenu>
       <SidebarMenuItem>
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <SidebarMenuButton
-              size='lg'
-              className='data-[state=open]:bg-accent cursor-pointer'
-            >
-              <UserInfo
-                user={user}
-                showIcon
-              />
-            </SidebarMenuButton>
-          </DropdownMenuTrigger>
+          <DropdownMenuTrigger
+            render={
+              <SidebarMenuButton
+                size='lg'
+                className='data-[state=open]:bg-accent cursor-pointer'
+              >
+                <UserInfo
+                  user={user}
+                  showIcon
+                />
+              </SidebarMenuButton>
+            }
+          />
           <DropdownMenuContent
             className='w-(--radix-dropdown-menu-trigger-width) min-w-56'
             side={isMobile ? 'bottom' : 'right'}
             align='end'
             sideOffset={4}
-            onCloseAutoFocus={e => e.preventDefault()}
           >
-            <DropdownMenuLabel className='p-0 font-normal'>
-              <div className='flex items-center gap-2 px-1 py-1.5 text-left text-sm'>
-                <UserInfo user={user} />
-              </div>
-            </DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={onLogout}>
-              <LogOut />
-              退出登录
-            </DropdownMenuItem>
+            <DropdownMenuGroup>
+              <DropdownMenuLabel className='p-0 font-normal'>
+                <div className='flex items-center gap-2 px-1 py-1.5 text-left text-sm'>
+                  <UserInfo user={user} />
+                </div>
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={onLogout}>
+                <LogOut />
+                退出登录
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Input as InputPrimitive } from '@base-ui/react/input';
 
 import { cn } from '@/lib/utils';
 
@@ -12,7 +13,7 @@ function Input({
 }) {
   return (
     <div className={cn('relative w-full')}>
-      <input
+      <InputPrimitive
         type={type}
         data-slot='input'
         className={cn(

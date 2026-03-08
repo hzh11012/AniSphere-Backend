@@ -10,6 +10,8 @@ import type { Table } from '@tanstack/react-table';
 
 interface DataTablePageSizeProps<TData> {
   table: Table<TData>;
+  /** 当前 pageSize */
+  pageSize: number;
   /** pageSize 列表 */
   sizes?: number[];
   /** 是否禁用 */
@@ -18,10 +20,10 @@ interface DataTablePageSizeProps<TData> {
 
 function DataTablePageSize<TData>({
   table,
+  pageSize,
   sizes = [10, 20, 50],
   disabled = false
 }: DataTablePageSizeProps<TData>) {
-  const { pageSize } = table.getState().pagination;
 
   return (
     <div className='flex items-center gap-2'>

@@ -52,14 +52,16 @@ const DataTableActionDialog: React.FC<DataTableActionDialogProps> = ({
       open={open}
       onOpenChange={onOpenChange}
     >
-      <DialogTrigger asChild>
-        <Button
-          variant='link'
-          className={cn('h-8 p-0', className)}
-        >
-          {text}
-        </Button>
-      </DialogTrigger>
+      <DialogTrigger
+        render={
+          <Button
+            variant='link'
+            className={cn('h-8 p-0', className)}
+          >
+            {text}
+          </Button>
+        }
+      />
       <DialogContent>
         <div className='flex flex-col items-center gap-3'>
           <div
@@ -77,16 +79,18 @@ const DataTableActionDialog: React.FC<DataTableActionDialogProps> = ({
           </DialogHeader>
         </div>
         <DialogFooter className='flex gap-6'>
-          <DialogClose asChild>
-            <Button
-              type='button'
-              className='flex-1 h-9'
-              variant='outline'
-              aria-label='取消'
-            >
-              取消
-            </Button>
-          </DialogClose>
+          <DialogClose
+            render={
+              <Button
+                type='button'
+                className='flex-1 h-9'
+                variant='outline'
+                aria-label='取消'
+              >
+                取消
+              </Button>
+            }
+          />
           <Button
             type='button'
             className={'flex-1 h-9'}

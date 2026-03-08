@@ -99,7 +99,7 @@ const links: NavItem[] = [
       {
         title: '番剧',
         icon: Tv,
-        url: '/animes'
+        url: '/anime'
       },
       {
         title: '剧集',

@@ -1,6 +1,7 @@
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger
@@ -20,31 +21,35 @@ function DataTableColumnSort<TData, TValue>({
 }: DataTableColumnSortProps<TData, TValue>) {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <div className='cursor-pointer'>
-          {column.getIsSorted() === 'desc' ? (
-            <ChevronDown className='size-4 text-primary' />
-          ) : column.getIsSorted() === 'asc' ? (
-            <ChevronUp className='size-4 text-primary' />
-          ) : (
-            <ChevronsUpDown className='size-4' />
-          )}
-        </div>
-      </DropdownMenuTrigger>
+      <DropdownMenuTrigger
+        render={
+          <button className='cursor-pointer'>
+            {column.getIsSorted() === 'desc' ? (
+              <ChevronDown className='size-4 text-primary' />
+            ) : column.getIsSorted() === 'asc' ? (
+              <ChevronUp className='size-4 text-primary' />
+            ) : (
+              <ChevronsUpDown className='size-4' />
+            )}
+          </button>
+        }
+      />
       <DropdownMenuContent>
-        <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
-          <ChevronUp className='size-4 text-muted-foreground/70 mr-1' />
-          升序
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => column.toggleSorting(true)}>
-          <ChevronDown className='size-4 text-muted-foreground/70 mr-1' />
-          降序
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => column.clearSorting()}>
-          <ChevronsUpDown className='size-4 text-muted-foreground/70 mr-1' />
-          重置
-        </DropdownMenuItem>
+        <DropdownMenuGroup>
+          <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
+            <ChevronUp className='size-4 text-muted-foreground/70 mr-1' />
+            升序
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => column.toggleSorting(true)}>
+            <ChevronDown className='size-4 text-muted-foreground/70 mr-1' />
+            降序
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem onClick={() => column.clearSorting()}>
+            <ChevronsUpDown className='size-4 text-muted-foreground/70 mr-1' />
+            重置
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
   );

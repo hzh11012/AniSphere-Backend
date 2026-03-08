@@ -1,4 +1,5 @@
 import type {
+  ColumnFiltersState,
   OnChangeFn,
   PaginationState,
   SortingState,
@@ -17,6 +18,7 @@ interface BaseTableState<TData> {
   keyword?: string;
   order?: string;
   sort?: string;
+  columnFilters: ColumnFiltersState;
 }
 
 interface BaseTableActions<TData> {
@@ -56,7 +58,8 @@ const DEFAULT_TABLE_STATE = {
   type: 'name',
   keyword: undefined,
   order: undefined,
-  sort: undefined
+  sort: undefined,
+  columnFilters: []
 } as const satisfies Omit<BaseTableState<unknown>, 'data'> & {
   data: unknown[];
 };

@@ -12,7 +12,8 @@ import { useRequest } from 'ahooks';
 import { addSeries } from '@/apis';
 import { Button } from '@/components/ui/button';
 import { useForm } from 'react-hook-form';
-import { AddForm, schema, type AddFormValues } from '@/pages/series/add-form';
+import AddForm from '@/pages/series/add-form';
+import { schema, type AddFormValues } from '@/pages/series/add-schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 interface AddDialogProps {
@@ -50,9 +51,9 @@ const AddDialog: React.FC<AddDialogProps> = ({ disabled, onRefresh }) => {
       open={open}
       onOpenChange={setOpen}
     >
-      <DialogTrigger asChild>
-        <Button disabled={disabled || loading}>添加</Button>
-      </DialogTrigger>
+      <DialogTrigger
+        render={<Button disabled={disabled || loading}>添加</Button>}
+      />
       <DialogContent aria-describedby={undefined}>
         <DialogHeader>
           <DialogTitle className='sm:text-left'>新增</DialogTitle>
@@ -62,16 +63,18 @@ const AddDialog: React.FC<AddDialogProps> = ({ disabled, onRefresh }) => {
           onSubmit={handleSubmit}
         />
         <DialogFooter className='flex gap-6'>
-          <DialogClose asChild>
-            <Button
-              type='button'
-              className='flex-1 h-9'
-              variant='outline'
-              aria-label='取消'
-            >
-              取消
-            </Button>
-          </DialogClose>
+          <DialogClose
+            render={
+              <Button
+                type='button'
+                className='flex-1 h-9'
+                variant='outline'
+                aria-label='取消'
+              >
+                取消
+              </Button>
+            }
+          />
           <Button
             type='submit'
             className={'flex-1 h-9'}

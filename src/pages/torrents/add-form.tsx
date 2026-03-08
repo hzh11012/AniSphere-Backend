@@ -1,14 +1,8 @@
 import React from 'react';
-import z from 'zod';
 import { Form } from '@/components/ui/form';
 import type { UseFormReturn } from 'react-hook-form';
 import FormTextarea from '@/components/custom/form/form-textarea';
-
-const schema = z.object({
-  torrentUrl: z.string().trim().min(1, '种子链接不能为空')
-});
-
-type AddFormValues = z.infer<typeof schema>;
+import type { AddFormValues } from '@/pages/torrents/add-schema';
 
 interface AddFormProps {
   form: UseFormReturn<AddFormValues>;
@@ -29,4 +23,4 @@ const AddForm: React.FC<AddFormProps> = ({ form, onSubmit }) => {
   );
 };
 
-export { AddForm, schema, type AddFormValues };
+export default AddForm;

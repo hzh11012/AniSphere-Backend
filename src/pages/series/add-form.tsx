@@ -1,14 +1,8 @@
 import React from 'react';
-import z from 'zod';
 import { Form } from '@/components/ui/form';
 import type { UseFormReturn } from 'react-hook-form';
 import FormInput from '@/components/custom/form/form-input';
-
-const schema = z.object({
-  name: z.string().trim().min(1, '系列名称不能为空')
-});
-
-type AddFormValues = z.infer<typeof schema>;
+import type { AddFormValues } from '@/pages/series/add-schema';
 
 interface AddFormProps {
   form: UseFormReturn<AddFormValues>;
@@ -30,4 +24,4 @@ const AddForm: React.FC<AddFormProps> = ({ form, onSubmit }) => {
   );
 };
 
-export { AddForm, schema, type AddFormValues };
+export default AddForm;
