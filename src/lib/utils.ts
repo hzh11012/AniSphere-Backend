@@ -96,3 +96,18 @@ export const formatFileSize = (size: number, unit: 'byte' | 'kb' = 'byte') => {
     return formatNumber(bytes) + ' B';
   }
 };
+
+/**
+ * 创建映射对象
+ * @param arr 数组
+ */
+export const createMap = (arr: { label: string; value: string }[]) => {
+  return arr.reduce(
+    (map, item) => {
+      const { label, value } = item;
+      map[value] = label;
+      return map;
+    },
+    {} as { [key: string]: string }
+  );
+};

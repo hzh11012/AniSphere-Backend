@@ -12,7 +12,7 @@ import {
 import useCountDown from '@/hooks/use-count-down';
 import { useRequest } from 'ahooks';
 import { useAuthStore } from '@/store';
-import CodeDialog from './code-dialog';
+import CodeDialog from '@/pages/login/code-dialog';
 import Loading from '@/components/custom/loading';
 import { login, sendCode } from '@/apis';
 import { toast } from 'sonner';

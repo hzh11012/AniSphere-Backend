@@ -28,8 +28,8 @@ import { useThrottleFn } from 'ahooks';
 import { cn } from '@/lib/utils';
 import DataTablePagination from '@/components/custom/data-table/data-table-pagination';
 import Exception from '@/components/custom/exception';
-import DataTablePageSize from './data-table-page-size';
-import DataTableTotal from './data-table-total';
+import DataTablePageSize from '@/components/custom/data-table/data-table-page-size';
+import DataTableTotal from '@/components/custom/data-table/data-table-total';
 
 /** 传统分页配置（已知总数） */
 interface TotalPaginationConfig {
@@ -233,13 +233,10 @@ const DataTable = <TData, TValue>({
       <TableHead
         key={id}
         colSpan={colSpan}
-        className={cn(
-          'relative h-9 px-3 select-none border-y text-nowrap bg-card',
-          {
-            'shadow-l-fixed': isFirstRightPinned && !isRightEnd,
-            'shadow-r-fixed': isLastLeftPinned && !isLeftStart
-          }
-        )}
+        className={cn('relative border-y bg-card', {
+          'shadow-l-fixed': isFirstRightPinned && !isRightEnd,
+          'shadow-r-fixed': isLastLeftPinned && !isLeftStart
+        })}
         style={getPinningStyles(column as Column<TData, TValue>)}
         data-pinned={isPinned || undefined}
       >
@@ -265,7 +262,7 @@ const DataTable = <TData, TValue>({
     return (
       <TableCell
         key={id}
-        className={cn('text-nowrap p-3 bg-background leading-8', {
+        className={cn('bg-background leading-8', {
           'shadow-l-fixed': isFirstRightPinned && !isRightEnd,
           'shadow-r-fixed': isLastLeftPinned && !isLeftStart
         })}

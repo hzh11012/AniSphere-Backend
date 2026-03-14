@@ -27,7 +27,7 @@ function DataTablePageSize<TData>({
 
   return (
     <div className='flex items-center gap-2'>
-      <span className='text-sm font-medium hidden md:block'>每页数</span>
+      <span className='text-sm font-medium hidden md:block select-none'>每页数</span>
       <Select
         value={`${pageSize}`}
         onValueChange={value => {

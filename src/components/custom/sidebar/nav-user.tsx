@@ -36,14 +36,12 @@ interface UserInfoProps {
 
 const UserInfo: React.FC<UserInfoProps> = ({ user, showIcon }) => (
   <>
-    <Avatar className='size-8 rounded-lg'>
+    <Avatar className='size-8'>
       <AvatarImage
         src={user.avatar}
         alt={user.name}
       />
-      <AvatarFallback className='rounded-lg'>
-        {user.name.slice(0, 1)}
-      </AvatarFallback>
+      <AvatarFallback>{user.name.slice(0, 1)}</AvatarFallback>
     </Avatar>
     <div className='grid flex-1 text-left text-sm leading-tight'>
       <span className='truncate font-medium'>{user.name}</span>
@@ -60,19 +58,17 @@ const NavUser: React.FC<NavUserProps> = ({ user, onLogout }) => {
     <SidebarMenu>
       <SidebarMenuItem>
         <DropdownMenu>
-          <DropdownMenuTrigger
-            render={
-              <SidebarMenuButton
-                size='lg'
-                className='data-[state=open]:bg-accent cursor-pointer'
-              >
-                <UserInfo
-                  user={user}
-                  showIcon
-                />
-              </SidebarMenuButton>
-            }
-          />
+          <DropdownMenuTrigger asChild>
+            <SidebarMenuButton
+              size='lg'
+              className='data-[state=open]:bg-border'
+            >
+              <UserInfo
+                user={user}
+                showIcon
+              />
+            </SidebarMenuButton>
+          </DropdownMenuTrigger>
           <DropdownMenuContent
             className='w-(--radix-dropdown-menu-trigger-width) min-w-56'
             side={isMobile ? 'bottom' : 'right'}

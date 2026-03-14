@@ -33,18 +33,16 @@ const FormTextarea = <TFieldValues extends FieldValues>({
           {label && (
             <FormLabel className={cn('text-sm w-fit')}>{label}</FormLabel>
           )}
-          <FormControl
-            render={
-              <Textarea
-                className={cn('resize-none max-h-35')}
-                autoComplete='off'
-                value={field.value}
-                onChange={field.onChange}
-                placeholder={placeholder}
-                maxLength={maxLength}
-              />
-            }
-          />
+          <FormControl>
+            <Textarea
+              className={cn('resize-none max-h-35')}
+              autoComplete='off'
+              value={field.value}
+              onChange={field.onChange}
+              placeholder={placeholder}
+              maxLength={maxLength}
+            />
+          </FormControl>
           <FormMessage />
         </FormItem>
       )}

@@ -98,7 +98,11 @@ const getColumns = () => {
       header: ({ column }) => (
         <div className='flex items-center gap-1'>
           <span>选定大小</span>
-          <DataTableColumnSort column={column} />
+          <DataTableColumnSort
+            sortDirection={column.getIsSorted()}
+            onSort={desc => column.toggleSorting(desc)}
+            onClearSort={() => column.clearSorting()}
+          />
         </div>
       ),
       cell: ({ row }) => {
@@ -111,7 +115,11 @@ const getColumns = () => {
       header: ({ column }) => (
         <div className='flex items-center gap-1'>
           <span>下载时间</span>
-          <DataTableColumnSort column={column} />
+          <DataTableColumnSort
+            sortDirection={column.getIsSorted()}
+            onSort={desc => column.toggleSorting(desc)}
+            onClearSort={() => column.clearSorting()}
+          />
         </div>
       ),
       cell: ({ row }) => {

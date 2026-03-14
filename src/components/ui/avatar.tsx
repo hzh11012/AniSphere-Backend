@@ -1,4 +1,5 @@
-import { Avatar as AvatarPrimitive } from '@base-ui/react/avatar';
+import * as React from 'react';
+import { Avatar as AvatarPrimitive } from 'radix-ui';
 
 import { cn } from '@/lib/utils';
 
@@ -6,7 +7,7 @@ function Avatar({
   className,
   size = 'default',
   ...props
-}: AvatarPrimitive.Root.Props & {
+}: React.ComponentProps<typeof AvatarPrimitive.Root> & {
   size?: 'default' | 'sm' | 'lg';
 }) {
   return (
@@ -14,7 +15,7 @@ function Avatar({
       data-slot='avatar'
       data-size={size}
       className={cn(
-        'size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6 group/avatar relative flex shrink-0 select-none after:absolute after:inset-0 after:mix-blend-darken dark:after:mix-blend-lighten',
+        'group/avatar relative flex size-8 shrink-0 overflow-hidden rounded-full select-none data-[size=lg]:size-10 data-[size=sm]:size-6',
         className
       )}
       {...props}
@@ -22,14 +23,14 @@ function Avatar({
   );
 }
 
-function AvatarImage({ className, ...props }: AvatarPrimitive.Image.Props) {
+function AvatarImage({
+  className,
+  ...props
+}: React.ComponentProps<typeof AvatarPrimitive.Image>) {
   return (
     <AvatarPrimitive.Image
       data-slot='avatar-image'
-      className={cn(
-        'rounded-full aspect-square size-full object-cover',
-        className
-      )}
+      className={cn('aspect-square size-full', className)}
       {...props}
     />
   );
@@ -38,12 +39,12 @@ function AvatarImage({ className, ...props }: AvatarPrimitive.Image.Props) {
 function AvatarFallback({
   className,
   ...props
-}: AvatarPrimitive.Fallback.Props) {
+}: React.ComponentProps<typeof AvatarPrimitive.Fallback>) {
   return (
     <AvatarPrimitive.Fallback
       data-slot='avatar-fallback'
       className={cn(
-        'bg-muted text-muted-foreground rounded-full flex size-full items-center justify-center text-sm group-data-[size=sm]/avatar:text-xs',
+        'flex size-full items-center justify-center rounded-full border bg-button text-sm text-button-foreground group-data-[size=sm]/avatar:text-xs',
         className
       )}
       {...props}

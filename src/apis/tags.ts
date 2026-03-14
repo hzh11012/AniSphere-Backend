@@ -19,6 +19,13 @@ interface TagsListRes {
   total: number;
 }
 
+interface TagsOptionItem {
+  label: string;
+  value: string;
+}
+
+type TagsOptionRes = TagsOptionItem[];
+
 const getTagsList = (params: TagsListParams) => {
   return request.get<TagsListRes>('/api/admin/tags', {
     params,
@@ -26,4 +33,17 @@ const getTagsList = (params: TagsListParams) => {
   });
 };
 
-export { getTagsList, type TagsListRes, type TagsListItem };
+const getTagsOption = () => {
+  return request.get<TagsOptionRes>('/api/admin/tags/options', {
+    showErrorToast: true
+  });
+};
+
+export {
+  getTagsList,
+  getTagsOption,
+  type TagsListRes,
+  type TagsListItem,
+  type TagsOptionRes,
+  type TagsOptionItem
+};

@@ -51,9 +51,9 @@ const AddDialog: React.FC<AddDialogProps> = ({ disabled, onRefresh }) => {
       open={open}
       onOpenChange={setOpen}
     >
-      <DialogTrigger
-        render={<Button disabled={disabled || loading}>添加</Button>}
-      />
+      <DialogTrigger asChild>
+        <Button disabled={disabled || loading}>添加</Button>
+      </DialogTrigger>
       <DialogContent aria-describedby={undefined}>
         <DialogHeader>
           <DialogTitle className='sm:text-left'>新增</DialogTitle>
@@ -63,21 +63,18 @@ const AddDialog: React.FC<AddDialogProps> = ({ disabled, onRefresh }) => {
           onSubmit={handleSubmit}
         />
         <DialogFooter className='flex gap-6'>
-          <DialogClose
-            render={
-              <Button
-                type='button'
-                className='flex-1 h-9'
-                variant='outline'
-                aria-label='取消'
-              >
-                取消
-              </Button>
-            }
-          />
+          <DialogClose asChild>
+            <Button
+              type='button'
+              className='flex-1'
+              variant='outline'
+            >
+              取消
+            </Button>
+          </DialogClose>
           <Button
             type='submit'
-            className={'flex-1 h-9'}
+            className='flex-1'
             onClick={form.handleSubmit(handleSubmit)}
             disabled={loading}
           >

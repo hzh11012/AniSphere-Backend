@@ -10,7 +10,6 @@ import {
   DialogTitle,
   DialogTrigger
 } from '@/components/ui/dialog';
-import { cn } from '@/lib/utils';
 import { Info } from 'lucide-react';
 
 interface ActionDialogProps {
@@ -52,22 +51,18 @@ const DataTableActionDialog: React.FC<DataTableActionDialogProps> = ({
       open={open}
       onOpenChange={onOpenChange}
     >
-      <DialogTrigger
-        render={
-          <Button
-            variant='link'
-            className={cn('h-8 p-0', className)}
-          >
-            {text}
-          </Button>
-        }
-      />
+      <DialogTrigger asChild>
+        <Button
+          variant='link'
+          size='link'
+          className={className}
+        >
+          {text}
+        </Button>
+      </DialogTrigger>
       <DialogContent>
         <div className='flex flex-col items-center gap-3'>
-          <div
-            className='flex size-9 shrink-0 items-center justify-center rounded-full border'
-            aria-hidden='true'
-          >
+          <div className='flex size-9 shrink-0 items-center justify-center rounded-full border'>
             <Info
               className='opacity-80 text-primary'
               size={18}
@@ -79,21 +74,18 @@ const DataTableActionDialog: React.FC<DataTableActionDialogProps> = ({
           </DialogHeader>
         </div>
         <DialogFooter className='flex gap-6'>
-          <DialogClose
-            render={
-              <Button
-                type='button'
-                className='flex-1 h-9'
-                variant='outline'
-                aria-label='取消'
-              >
-                取消
-              </Button>
-            }
-          />
+          <DialogClose asChild>
+            <Button
+              type='button'
+              className='flex-1'
+              variant='outline'
+            >
+              取消
+            </Button>
+          </DialogClose>
           <Button
-            type='button'
-            className={'flex-1 h-9'}
+            type='submit'
+            className='flex-1'
             onClick={onClick}
             disabled={disabled}
           >

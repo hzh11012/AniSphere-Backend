@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Input as InputPrimitive } from '@base-ui/react/input';
 
 import { cn } from '@/lib/utils';
 
@@ -13,16 +12,16 @@ function Input({
 }) {
   return (
     <div className={cn('relative w-full')}>
-      <InputPrimitive
+      <input
         type={type}
         data-slot='input'
         className={cn(
-          'h-9 w-full border min-w-0 rounded-md bg-transparent px-3 py-1 text-sm outline-none',
-          'placeholder:select-none placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground transition-[color] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50',
-          'focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]',
-          'aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive',
+          'h-9 w-full border min-w-0 rounded-md bg-transparent px-2.5 py-1 text-sm outline-none transition-colors',
+          'focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-3',
+          'disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50',
+          'placeholder:select-none placeholder:text-muted selection:bg-primary selection:text-white',
           {
-            'peer ps-9': !!prefixIcon
+            'peer ps-8': !!prefixIcon
           },
           className
         )}
@@ -30,10 +29,8 @@ function Input({
       />
       {prefixIcon && (
         <div
-          aria-invalid={props['aria-invalid']}
           className={cn(
-            'text-muted-foreground/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 peer-disabled:opacity-50',
-            'aria-invalid:has-[>svg]:text-destructive'
+            'text-button-foreground pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-2.5 peer-disabled:opacity-50'
           )}
         >
           {prefixIcon}

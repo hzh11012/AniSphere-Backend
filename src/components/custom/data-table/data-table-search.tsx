@@ -22,7 +22,7 @@ interface DataTableSearchProps {
   /** 搜索回调 */
   onSearch: (value: string) => void;
   /** 搜索类型选择回调 */
-  onSelect?: (type: string) => void;
+  onSelect?: (type: string | null) => void;
 }
 
 const DataTableSearch: React.FC<DataTableSearchProps> = ({

@@ -26,12 +26,7 @@ const LoginForm: React.FC<FormProps> = ({ form, onFocus, onSubmit }) => {
           name='email'
           placeholder={'请输入邮箱'}
           onFocus={onFocus}
-          prefixIcon={
-            <Mail
-              size={16}
-              aria-hidden='true'
-            />
-          }
+          prefixIcon={<Mail size={16} />}
         />
       </form>
     </Form>

@@ -32,7 +32,9 @@ const LinkBreadcrumb: React.FC<LinkBreadcrumbProps> = ({ items }) => {
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbLink render={<Link to={'/'}>{homeTitle}</Link>} />
+          <BreadcrumbLink asChild>
+            <Link to={'/'}>{homeTitle}</Link>
+          </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator
           className={cn({ 'hidden': isHomePage || !title })}

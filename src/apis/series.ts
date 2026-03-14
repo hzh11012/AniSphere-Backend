@@ -27,6 +27,13 @@ interface DeleteSeriesParams {
   id: number;
 }
 
+interface SeriesOptionItem {
+  label: string;
+  value: string;
+}
+
+type SeriesOptionRes = SeriesOptionItem[];
+
 const getSeriesList = (params: SeriesListParams) => {
   return request.get<SeriesListRes>('/api/admin/series', {
     params,
@@ -49,10 +56,18 @@ const deleteSeries = (params: DeleteSeriesParams) => {
   });
 };
 
+const getSeriesOption = () => {
+  return request.get<SeriesOptionRes>('/api/admin/series/options', {
+    showErrorToast: true
+  });
+};
+
 export {
   getSeriesList,
   type SeriesListRes,
   type SeriesListItem,
+  type SeriesOptionRes,
   addSeries,
-  deleteSeries
+  deleteSeries,
+  getSeriesOption
 };

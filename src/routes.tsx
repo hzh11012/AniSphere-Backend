@@ -72,6 +72,10 @@ const staticRoutes: RouteObject[] = [
             lazy: createLazyComponent(() => import('@/pages/tags/index'))
           },
           {
+            path: 'anime',
+            lazy: createLazyComponent(() => import('@/pages/anime/index'))
+          },
+          {
             path: '*',
             element: <Exception />
           }

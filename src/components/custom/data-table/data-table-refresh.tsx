@@ -15,7 +15,8 @@ const DataTableRefresh: React.FC<DataTableRefreshProps> = ({
 }) => {
   return (
     <Button
-      variant='icon'
+      variant='outline'
+      size='icon'
       onClick={onRefresh}
       disabled={disabled}
     >

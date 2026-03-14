@@ -37,20 +37,18 @@ const FormInput = <TFieldValues extends FieldValues>({
           {label && (
             <FormLabel className={cn('text-sm w-fit')}>{label}</FormLabel>
           )}
-          <FormControl
-            render={
-              <Input
-                type='text'
-                autoComplete='off'
-                value={field.value}
-                maxLength={maxLength}
-                onChange={field.onChange}
-                placeholder={placeholder}
-                prefixIcon={prefixIcon}
-                onFocus={onFocus}
-              />
-            }
-          />
+          <FormControl>
+            <Input
+              type='text'
+              autoComplete='off'
+              value={field.value}
+              maxLength={maxLength}
+              onChange={field.onChange}
+              placeholder={placeholder}
+              prefixIcon={prefixIcon}
+              onFocus={onFocus}
+            />
+          </FormControl>
           <FormMessage />
         </FormItem>
       )}

@@ -4,3 +4,4 @@ export * from '@/store/torrents';
 export * from '@/store/tasks';
 export * from '@/store/series';
 export * from '@/store/tags';
+export * from '@/store/anime';

@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { mergeProps } from '@base-ui/react/merge-props';
-import { useRender } from '@base-ui/react/use-render';
+import { Slot, Label as LabelPrimitive } from 'radix-ui';
 import {
   Controller,
   FormProvider,
@@ -85,7 +84,10 @@ function FormItem({ className, ...props }: React.ComponentProps<'div'>) {
   );
 }
 
-function FormLabel({ className, ...props }: React.ComponentProps<'label'>) {
+function FormLabel({
+  className,
+  ...props
+}: React.ComponentProps<typeof LabelPrimitive.Root>) {
   const { error, formItemId } = useFormField();
 
   return (
@@ -99,35 +101,13 @@ function FormLabel({ className, ...props }: React.ComponentProps<'label'>) {
   );
 }
 
-function FormControl({ render, ...props }: useRender.ComponentProps<'input'>) {
-  const { error, formItemId, formDescriptionId, formMessageId } =
-    useFormField();
-
-  return useRender({
-    defaultTagName: 'input',
-    props: mergeProps<'input'>(
-      {
-        id: formItemId,
-        'aria-describedby': !error
-          ? `${formDescriptionId}`
-          : `${formDescriptionId} ${formMessageId}`,
-        'aria-invalid': !!error
-      },
-      props
-    ),
-    render,
-    state: undefined
-  });
-}
-
-function FormDescription({ className, ...props }: React.ComponentProps<'p'>) {
-  const { formDescriptionId } = useFormField();
+function FormControl({ ...props }: React.ComponentProps<typeof Slot.Root>) {
+  const { formItemId } = useFormField();
 
   return (
-    <p
-      data-slot='form-description'
-      id={formDescriptionId}
-      className={cn('text-muted-foreground text-sm', className)}
+    <Slot.Root
+      data-slot='form-control'
+      id={formItemId}
       {...props}
     />
   );
@@ -159,7 +139,6 @@ export {
   FormItem,
   FormLabel,
   FormControl,
-  FormDescription,
   FormMessage,
   FormField
 };

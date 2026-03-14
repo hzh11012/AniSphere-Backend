@@ -61,7 +61,8 @@ function DataTablePagination<TData>({
           <PaginationContent>
             <PaginationItem>
               <Button
-                variant='icon'
+                variant='outline'
+                size='icon'
                 onClick={() => table.previousPage()}
                 disabled={disabled || !canPreviousPage}
               >
@@ -69,13 +70,14 @@ function DataTablePagination<TData>({
               </Button>
             </PaginationItem>
             <PaginationItem>
-              <div className='flex items-center justify-center size-9'>
+              <div className='flex items-center justify-center size-9 select-none'>
                 {currentPage}
               </div>
             </PaginationItem>
             <PaginationItem>
               <Button
-                variant='icon'
+                variant='outline'
+                size='icon'
                 onClick={() => table.nextPage()}
                 disabled={disabled || !canNextPage}
               >
@@ -99,7 +101,8 @@ function DataTablePagination<TData>({
         <PaginationContent>
           <PaginationItem>
             <Button
-              variant='icon'
+              variant='outline'
+              size='icon'
               onClick={() => table.previousPage()}
               disabled={disabled || !canPreviousPage}
             >
@@ -113,12 +116,11 @@ function DataTablePagination<TData>({
                 <PaginationEllipsis />
               ) : (
                 <PaginationLink
-                  className={cn('cursor-pointer size-9 hover:bg-accent', {
+                  className={cn('text-foreground', {
                     'pointer-events-none': disabled || currentPage === page
                   })}
                   onClick={() => table.setPageIndex(Number(page) - 1)}
                   isActive={currentPage === page}
-                  aria-disabled={disabled}
                 >
                   {page}
                 </PaginationLink>
@@ -128,7 +130,8 @@ function DataTablePagination<TData>({
 
           <PaginationItem>
             <Button
-              variant='icon'
+              variant='outline'
+              size='icon'
               onClick={() => table.nextPage()}
               disabled={disabled || !canNextPage}
             >

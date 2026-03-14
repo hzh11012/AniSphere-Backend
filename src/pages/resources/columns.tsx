@@ -12,7 +12,7 @@ const getColumns = () => {
       header: '来源',
       cell: ({ row }) => {
         const { fansub } = row.original;
-        return <Badge className='text-white'>{fansub}</Badge>;
+        return <Badge>{fansub}</Badge>;
       }
     },
     {

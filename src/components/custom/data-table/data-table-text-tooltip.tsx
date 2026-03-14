@@ -23,7 +23,9 @@ const DataTableTextTooltip: React.FC<DataTableTextTooltipProps> = ({
   return (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger render={<span>{text.slice(0, maxCount)}...</span>} />
+        <TooltipTrigger asChild>
+          <span>{text.slice(0, maxCount)}...</span>
+        </TooltipTrigger>
         <TooltipContent
           className={cn('max-w-64 max-h-64 scroll-hidden break-all')}
         >

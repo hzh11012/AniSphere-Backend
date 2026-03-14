@@ -17,7 +17,6 @@ const Loading: React.FC<loadingProps> = ({ className, size = 50 }) => {
       <RingLoader
         color='var(--primary)'
         size={size}
-        aria-label='加载中'
         data-testid='loader'
       />
     </div>
