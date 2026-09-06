@@ -69,7 +69,7 @@ export const MiniBar = ({
   max: number;
   color: string;
 }) => (
-  <div className='h-1.5 flex-1 rounded-full bg-muted overflow-hidden'>
+  <div className='h-1.5 flex-1 rounded-full bg-border overflow-hidden'>
     <div
       className={cn('h-full rounded-full', color)}
       style={{

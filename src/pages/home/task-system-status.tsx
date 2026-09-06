@@ -86,7 +86,7 @@ const SystemStatus = ({ stats, loading }: Props) => (
           return (
             <div
               key={key}
-              className='flex items-center justify-between rounded-md border bg-muted/30 px-4 py-2.5'
+              className='flex items-center justify-between rounded-md border bg-border/40 px-4 py-2.5'
             >
               <div className='flex items-center gap-2 text-sm'>
                 <Icon className='size-4' />
