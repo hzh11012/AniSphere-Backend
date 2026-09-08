@@ -30,7 +30,7 @@ const SIZE_CLASS: Record<AmbientDanmaku['size'], string> = {
 };
 
 const PILL_BASE =
-  'absolute left-0 rounded-full border border-border/50 bg-card/40 whitespace-nowrap backdrop-blur-sm';
+  'absolute left-0 rounded-full border border-border/50 bg-card/40 px-3 py-1 whitespace-nowrap backdrop-blur-sm';
 
 /** 环境弹幕胶囊 */
 const AmbientPill = ({ item }: { item: AmbientDanmaku }) => (
