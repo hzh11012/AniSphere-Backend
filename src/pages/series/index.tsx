@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 import { DataTable } from '@/components/custom/data-table/data-table';
 import getColumns from '@/pages/series/columns';
-import { useSeriesStore } from '@/store';
-import { fetchSeries } from '@/apis';
+import { useSeriesStore } from '@/store/series';
+import { fetchSeries } from '@/apis/series';
 import DataTableSearch from '@/components/custom/data-table/data-table-search';
 import DataTableRefresh from '@/components/custom/data-table/data-table-refresh';
 import AddDialog from '@/pages/series/add-dialog';

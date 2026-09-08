@@ -1,7 +1,7 @@
 import { useCallback, useRef, useState } from 'react';
 import useCountDown from '@/hooks/use-count-down';
 import { useRequest } from 'ahooks';
-import { login, sendCode } from '@/apis';
+import { login, sendCode } from '@/apis/auth';
 
 /** 登录页的验证码发送 + 倒计时 + 弹窗开关逻辑 */
 export const useAuthLogin = () => {

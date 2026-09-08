@@ -1,4 +1,4 @@
-import type { FavoriteListItem } from '@/apis';
+import type { FavoriteListItem } from '@/apis/favorites';
 import { formatDate } from '@/lib/utils';
 import type { ColumnDef } from '@tanstack/react-table';
 import { Search } from 'lucide-react';

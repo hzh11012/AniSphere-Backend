@@ -1,4 +1,4 @@
-import type { DashboardStatsResponse } from '@/apis';
+import type { DashboardStatsResponse } from '@/apis/dashboard';
 import {
   Activity,
   BookOpen,

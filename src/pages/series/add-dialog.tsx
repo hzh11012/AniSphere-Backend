@@ -1,4 +1,4 @@
-import { createSeries } from '@/apis';
+import { createSeries } from '@/apis/series';
 import AddForm from '@/pages/series/add-form';
 import {
   seriesSchema,

@@ -1,9 +1,6 @@
-import {
-  deleteAnime,
-  type AnimeListItem,
-  type SeriesOptionRes,
-  type TagsOptionRes
-} from '@/apis';
+import { deleteAnime, type AnimeListItem } from '@/apis/anime';
+import type { SeriesOptionRes } from '@/apis/series';
+import type { TagsOptionRes } from '@/apis/tags';
 import { createActionDialog } from '@/components/custom/data-table/create-action-dialog';
 import type { RowActionsProps } from '@/components/custom/data-table/create-form-dialog';
 import EditDialog from '@/pages/anime/edit-dialog';

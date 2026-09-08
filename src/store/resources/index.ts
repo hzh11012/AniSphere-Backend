@@ -1,4 +1,4 @@
-import type { ResourcesListItem } from '@/apis';
+import type { ResourcesListItem } from '@/apis/resources';
 import { createTableStore } from '@/store/base';
 
 const useResourcesStore =

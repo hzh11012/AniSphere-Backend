@@ -1,9 +1,6 @@
-import {
-  updateAnime,
-  type AnimeListItem,
-  type SeriesOptionRes,
-  type TagsOptionRes
-} from '@/apis';
+import { updateAnime, type AnimeListItem } from '@/apis/anime';
+import type { SeriesOptionRes } from '@/apis/series';
+import type { TagsOptionRes } from '@/apis/tags';
 import AnimeForm from '@/pages/anime/anime-form';
 import { animeSchema, type AnimeFormValues } from '@/pages/anime/form-schema';
 import { createFormDialog } from '@/components/custom/data-table/create-form-dialog';

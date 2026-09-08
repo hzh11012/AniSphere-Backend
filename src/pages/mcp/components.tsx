@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Wrench, BookOpen, Cable } from 'lucide-react';
-import type { McpTool } from '@/apis';
+import type { McpTool } from '@/apis/mcp';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 

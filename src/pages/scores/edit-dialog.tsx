@@ -1,4 +1,4 @@
-import { updateScore, type ScoreListItem } from '@/apis';
+import { updateScore, type ScoreListItem } from '@/apis/scores';
 import ScoreForm from '@/pages/scores/score-form';
 import { scoreSchema, type ScoreFormValues } from '@/pages/scores/form-schema';
 import { createFormDialog } from '@/components/custom/data-table/create-form-dialog';

@@ -1,5 +1,5 @@
 import { useRequest } from 'ahooks';
-import { fetchSettingsInfo, clearDashboardCache } from '@/apis';
+import { fetchSettingsInfo, clearDashboardCache } from '@/apis/settings';
 import { Trash2 } from 'lucide-react';
 import { useRequest as useManualRequest } from 'ahooks';
 import DataTableRefresh from '@/components/custom/data-table/data-table-refresh';

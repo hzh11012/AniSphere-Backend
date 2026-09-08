@@ -1,4 +1,5 @@
-import { deleteVideo, type VideoListItem, type AnimeOptionRes } from '@/apis';
+import { deleteVideo, type VideoListItem } from '@/apis/videos';
+import type { AnimeOptionRes } from '@/apis/anime';
 import { createActionDialog } from '@/components/custom/data-table/create-action-dialog';
 import type { RowActionsProps } from '@/components/custom/data-table/create-form-dialog';
 import EditDialog from '@/pages/videos/edit-dialog';

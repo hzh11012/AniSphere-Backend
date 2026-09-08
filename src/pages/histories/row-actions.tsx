@@ -1,4 +1,4 @@
-import { deleteHistory, type HistoryListItem } from '@/apis';
+import { deleteHistory, type HistoryListItem } from '@/apis/histories';
 import { createActionDialog } from '@/components/custom/data-table/create-action-dialog';
 import type { RowActionsProps } from '@/components/custom/data-table/create-form-dialog';
 

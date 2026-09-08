@@ -1,4 +1,4 @@
-import { deleteSeries, type SeriesListItem } from '@/apis';
+import { deleteSeries, type SeriesListItem } from '@/apis/series';
 import { createActionDialog } from '@/components/custom/data-table/create-action-dialog';
 import type { RowActionsProps } from '@/components/custom/data-table/create-form-dialog';
 

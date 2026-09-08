@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 import { DataTable } from '@/components/custom/data-table/data-table';
 import getColumns from '@/pages/dans/columns';
-import { useDanmakuStore } from '@/store';
-import { fetchDanmakus } from '@/apis';
+import { useDanmakuStore } from '@/store/dans';
+import { fetchDanmakus } from '@/apis/dans';
 import DataTableSearch from '@/components/custom/data-table/data-table-search';
 import DataTableRefresh from '@/components/custom/data-table/data-table-refresh';
 import { useDataTablePage } from '@/hooks/use-data-table-page';

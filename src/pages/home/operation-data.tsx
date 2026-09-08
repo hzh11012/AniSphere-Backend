@@ -1,4 +1,4 @@
-import type { DashboardStatsResponse } from '@/apis';
+import type { DashboardStatsResponse } from '@/apis/dashboard';
 import { Flame, MessageSquare, Star } from 'lucide-react';
 import { cn, createMap, formatDate } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';

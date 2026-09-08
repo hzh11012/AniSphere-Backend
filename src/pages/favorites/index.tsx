@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 import { DataTable } from '@/components/custom/data-table/data-table';
 import getColumns from '@/pages/favorites/columns';
-import { useFavoritesStore } from '@/store';
-import { fetchFavorites } from '@/apis';
+import { useFavoritesStore } from '@/store/favorites';
+import { fetchFavorites } from '@/apis/favorites';
 import DataTableSearch from '@/components/custom/data-table/data-table-search';
 import DataTableRefresh from '@/components/custom/data-table/data-table-refresh';
 import { useDataTablePage } from '@/hooks/use-data-table-page';

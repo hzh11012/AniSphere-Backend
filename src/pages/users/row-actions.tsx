@@ -1,4 +1,4 @@
-import type { UserListItem } from '@/apis';
+import type { UserListItem } from '@/apis/users';
 import type { RowActionsProps } from '@/components/custom/data-table/create-form-dialog';
 import EditDialog from '@/pages/users/edit-dialog';
 

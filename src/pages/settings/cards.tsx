@@ -1,4 +1,4 @@
-import type { SettingsInfoResponse } from '@/apis';
+import type { SettingsInfoResponse } from '@/apis/settings';
 import {
   Server,
   Download,

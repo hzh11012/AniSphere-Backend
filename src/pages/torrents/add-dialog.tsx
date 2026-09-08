@@ -1,4 +1,4 @@
-import { createTorrent } from '@/apis';
+import { createTorrent } from '@/apis/torrents';
 import AddForm from '@/pages/torrents/add-form';
 import {
   torrentsSchema,

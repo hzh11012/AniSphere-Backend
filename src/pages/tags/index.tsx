@@ -1,7 +1,7 @@
 import { DataTable } from '@/components/custom/data-table/data-table';
 import columns from '@/pages/tags/columns';
-import { useTagsStore } from '@/store';
-import { fetchTags } from '@/apis';
+import { useTagsStore } from '@/store/tags';
+import { fetchTags } from '@/apis/tags';
 import DataTableSearch from '@/components/custom/data-table/data-table-search';
 import DataTableRefresh from '@/components/custom/data-table/data-table-refresh';
 import { useDataTablePage } from '@/hooks/use-data-table-page';

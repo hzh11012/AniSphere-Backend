@@ -1,4 +1,4 @@
-import type { UserListItem } from '@/apis';
+import type { UserListItem } from '@/apis/users';
 import {
   createTableStore,
   resolveUpdater,

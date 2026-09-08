@@ -1,4 +1,4 @@
-import type { TasksListItem } from '@/apis';
+import type { TasksListItem } from '@/apis/tasks';
 import {
   createTableStore,
   resolveUpdater,

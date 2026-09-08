@@ -1,4 +1,5 @@
-import type { TopicListItem, AnimeOptionRes } from '@/apis';
+import type { TopicListItem } from '@/apis/topics';
+import type { AnimeOptionRes } from '@/apis/anime';
 import { createMap, formatDate } from '@/lib/utils';
 import type { ColumnDef } from '@tanstack/react-table';
 import { Search } from 'lucide-react';

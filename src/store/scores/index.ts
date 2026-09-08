@@ -1,4 +1,4 @@
-import type { ScoreListItem } from '@/apis';
+import type { ScoreListItem } from '@/apis/scores';
 import {
   createTableStore,
   resolveUpdater,

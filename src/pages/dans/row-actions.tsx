@@ -1,4 +1,4 @@
-import { deleteDanmaku, type DanmakuListItem } from '@/apis';
+import { deleteDanmaku, type DanmakuListItem } from '@/apis/dans';
 import { createActionDialog } from '@/components/custom/data-table/create-action-dialog';
 import type { RowActionsProps } from '@/components/custom/data-table/create-form-dialog';
 

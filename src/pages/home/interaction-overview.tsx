@@ -1,4 +1,4 @@
-import type { DashboardStatsResponse } from '@/apis';
+import type { DashboardStatsResponse } from '@/apis/dashboard';
 import { Clock, Flame, MessageSquare, Star } from 'lucide-react';
 import { SkeletonCard, StatCard } from './components';
 

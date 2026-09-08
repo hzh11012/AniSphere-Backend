@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useRequest } from 'ahooks';
-import { createTorrent, type ResourcesListItem } from '@/apis';
+import { createTorrent } from '@/apis/torrents';
+import type { ResourcesListItem } from '@/apis/resources';
 import { DataTableActionDialog } from '@/components/custom/data-table/data-table-action-dialog';
 import type { RowActionsProps } from '@/components/custom/data-table/create-form-dialog';
 

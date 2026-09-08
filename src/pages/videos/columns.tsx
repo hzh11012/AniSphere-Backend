@@ -1,4 +1,5 @@
-import type { VideoListItem, AnimeOptionRes } from '@/apis';
+import type { VideoListItem } from '@/apis/videos';
+import type { AnimeOptionRes } from '@/apis/anime';
 import { formatDate } from '@/lib/utils';
 import type { ColumnDef } from '@tanstack/react-table';
 import { Search } from 'lucide-react';

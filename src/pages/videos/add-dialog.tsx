@@ -1,4 +1,5 @@
-import { createVideo, type AnimeOptionRes } from '@/apis';
+import { createVideo } from '@/apis/videos';
+import type { AnimeOptionRes } from '@/apis/anime';
 import VideoForm from '@/pages/videos/video-form';
 import { videoSchema, type VideoFormValues } from '@/pages/videos/form-schema';
 import { createFormDialog } from '@/components/custom/data-table/create-form-dialog';

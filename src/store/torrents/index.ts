@@ -1,4 +1,4 @@
-import type { TorrentsListItem } from '@/apis';
+import type { TorrentsListItem } from '@/apis/torrents';
 import { createTableStore, resolveUpdater } from '@/store/base';
 import type { OnChangeFn, SortingState } from '@tanstack/react-table';
 

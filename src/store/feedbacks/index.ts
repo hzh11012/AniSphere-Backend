@@ -1,4 +1,4 @@
-import type { FeedbackListItem } from '@/apis';
+import type { FeedbackListItem } from '@/apis/feedbacks';
 import {
   createTableStore,
   resolveUpdater,

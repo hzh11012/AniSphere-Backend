@@ -1,4 +1,4 @@
-import type { ResourcesListItem } from '@/apis';
+import type { ResourcesListItem } from '@/apis/resources';
 import { Badge } from '@/components/ui/badge';
 import { formatDate, formatFileSize } from '@/lib/utils';
 import type { ColumnDef } from '@tanstack/react-table';

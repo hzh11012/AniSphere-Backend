@@ -1,4 +1,4 @@
-import type { TagsListItem } from '@/apis';
+import type { TagsListItem } from '@/apis/tags';
 import { formatDate } from '@/lib/utils';
 import type { ColumnDef } from '@tanstack/react-table';
 import { Search } from 'lucide-react';

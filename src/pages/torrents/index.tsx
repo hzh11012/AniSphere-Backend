@@ -1,7 +1,7 @@
 import { DataTable } from '@/components/custom/data-table/data-table';
 import columns from '@/pages/torrents/columns';
-import { useTorrentsStore } from '@/store';
-import { fetchTorrents } from '@/apis';
+import { useTorrentsStore } from '@/store/torrents';
+import { fetchTorrents } from '@/apis/torrents';
 import DataTableRefresh from '@/components/custom/data-table/data-table-refresh';
 import AddDialog from '@/pages/torrents/add-dialog';
 import { useDataTablePage } from '@/hooks/use-data-table-page';

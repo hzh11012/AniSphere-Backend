@@ -1,4 +1,5 @@
-import type { VideoListItem, AnimeOptionRes } from '@/apis';
+import type { VideoListItem } from '@/apis/videos';
+import type { AnimeOptionRes } from '@/apis/anime';
 import { createTableStore, type SimpleTableStore } from '@/store/base';
 
 interface VideoExtra {

@@ -1,4 +1,4 @@
-import type { SeriesListItem } from '@/apis';
+import type { SeriesListItem } from '@/apis/series';
 import { formatDate } from '@/lib/utils';
 import type { ColumnDef } from '@tanstack/react-table';
 import { Search } from 'lucide-react';

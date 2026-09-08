@@ -1,4 +1,4 @@
-import { updateUser, type UserListItem } from '@/apis';
+import { updateUser, type UserListItem } from '@/apis/users';
 import UserForm from '@/pages/users/user-form';
 import { userSchema, type UserFormValues } from '@/pages/users/form-schema';
 import { createFormDialog } from '@/components/custom/data-table/create-form-dialog';

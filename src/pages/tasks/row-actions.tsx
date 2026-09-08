@@ -1,4 +1,4 @@
-import { deleteTask, type TasksListItem } from '@/apis';
+import { deleteTask, type TasksListItem } from '@/apis/tasks';
 import { createActionDialog } from '@/components/custom/data-table/create-action-dialog';
 import type { RowActionsProps } from '@/components/custom/data-table/create-form-dialog';
 import IngestDialog from '@/pages/tasks/ingest-dialog';

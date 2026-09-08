@@ -1,4 +1,4 @@
-import type { DanmakuListItem } from '@/apis';
+import type { DanmakuListItem } from '@/apis/dans';
 import { formatDate, formatDuration } from '@/lib/utils';
 import type { ColumnDef } from '@tanstack/react-table';
 import { Search } from 'lucide-react';

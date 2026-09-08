@@ -1,4 +1,6 @@
-import type { AnimeListItem, TagsOptionRes, SeriesOptionRes } from '@/apis';
+import type { AnimeListItem } from '@/apis/anime';
+import type { TagsOptionRes } from '@/apis/tags';
+import type { SeriesOptionRes } from '@/apis/series';
 import {
   createTableStore,
   resolveUpdater,

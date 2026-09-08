@@ -1,4 +1,4 @@
-import type { ScoreListItem } from '@/apis';
+import type { ScoreListItem } from '@/apis/scores';
 import { createMap, formatDate } from '@/lib/utils';
 import type { ColumnDef } from '@tanstack/react-table';
 import { Search } from 'lucide-react';

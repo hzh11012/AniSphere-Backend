@@ -1,4 +1,4 @@
-import { deleteFavorite, type FavoriteListItem } from '@/apis';
+import { deleteFavorite, type FavoriteListItem } from '@/apis/favorites';
 import { createActionDialog } from '@/components/custom/data-table/create-action-dialog';
 import type { RowActionsProps } from '@/components/custom/data-table/create-form-dialog';
 

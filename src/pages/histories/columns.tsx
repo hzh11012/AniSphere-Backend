@@ -1,4 +1,4 @@
-import type { HistoryListItem } from '@/apis';
+import type { HistoryListItem } from '@/apis/histories';
 import { formatDate, formatDuration } from '@/lib/utils';
 import type { ColumnDef } from '@tanstack/react-table';
 import { Search } from 'lucide-react';

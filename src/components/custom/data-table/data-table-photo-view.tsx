@@ -1,6 +1,7 @@
 import { cn } from '@/lib/utils';
 import Loading from '@/components/custom/loading';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
+import 'react-photo-view/dist/react-photo-view.css';
 
 interface DataTablePhotoViewProps {
   label: string;

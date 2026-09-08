@@ -8,9 +8,9 @@ import {
   SidebarHeader
 } from '@/components/ui/sidebar';
 import { links } from '@/links';
-import { useAuthStore } from '@/store';
+import { useAuthStore } from '@/store/auth';
 import { useRequest } from 'ahooks';
-import { logout } from '@/apis';
+import { logout } from '@/apis/auth';
 import { useShallow } from 'zustand/react/shallow';
 
 const AppSideBar: React.FC<React.ComponentProps<typeof Sidebar>> = ({

@@ -1,4 +1,4 @@
-import type { FeedbackListItem } from '@/apis';
+import type { FeedbackListItem } from '@/apis/feedbacks';
 import { createMap, formatDate } from '@/lib/utils';
 import type { ColumnDef } from '@tanstack/react-table';
 import { Search } from 'lucide-react';

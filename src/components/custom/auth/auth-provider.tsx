@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
-import { useAuthStore } from '@/store';
+import { useAuthStore } from '@/store/auth';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Exception from '@/components/custom/exception';
 import { useRequest } from 'ahooks';
-import { me } from '@/apis';
+import { me } from '@/apis/auth';
 import { toast } from 'sonner';
 import useDeferredLoading from '@/hooks/use-deferred-loading';
 

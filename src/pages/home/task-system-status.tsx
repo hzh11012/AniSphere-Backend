@@ -1,4 +1,4 @@
-import type { DashboardStatsResponse } from '@/apis';
+import type { DashboardStatsResponse } from '@/apis/dashboard';
 import { CheckCircle2, Circle, Database, Server, Shield } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Skeleton } from '@/components/ui/skeleton';

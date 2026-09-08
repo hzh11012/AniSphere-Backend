@@ -1,7 +1,7 @@
 import { Form } from '@/components/ui/form';
 import type { UseFormReturn } from 'react-hook-form';
 import type { TopicFormValues } from '@/pages/topics/form-schema';
-import type { AnimeOptionRes } from '@/apis';
+import type { AnimeOptionRes } from '@/apis/anime';
 import FormInput from '@/components/custom/form/form-input';
 import FormTextarea from '@/components/custom/form/form-textarea';
 import FormSelect from '@/components/custom/form/form-select';

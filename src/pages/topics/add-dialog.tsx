@@ -1,4 +1,5 @@
-import { createTopic, type AnimeOptionRes } from '@/apis';
+import { createTopic } from '@/apis/topics';
+import type { AnimeOptionRes } from '@/apis/anime';
 import TopicForm from '@/pages/topics/topic-form';
 import { topicSchema, type TopicFormValues } from '@/pages/topics/form-schema';
 import { createFormDialog } from '@/components/custom/data-table/create-form-dialog';

@@ -1,4 +1,4 @@
-import type { TasksListItem } from '@/apis';
+import type { TasksListItem } from '@/apis/tasks';
 import { Badge } from '@/components/ui/badge';
 import { formatDate, formatFileSize } from '@/lib/utils';
 import type { ColumnDef } from '@tanstack/react-table';

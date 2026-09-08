@@ -1,4 +1,5 @@
-import { deleteTopic, type TopicListItem, type AnimeOptionRes } from '@/apis';
+import { deleteTopic, type TopicListItem } from '@/apis/topics';
+import type { AnimeOptionRes } from '@/apis/anime';
 import { createActionDialog } from '@/components/custom/data-table/create-action-dialog';
 import type { RowActionsProps } from '@/components/custom/data-table/create-form-dialog';
 import EditDialog from '@/pages/topics/edit-dialog';

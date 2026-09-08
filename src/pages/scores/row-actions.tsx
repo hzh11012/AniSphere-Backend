@@ -1,4 +1,4 @@
-import { deleteScore, type ScoreListItem } from '@/apis';
+import { deleteScore, type ScoreListItem } from '@/apis/scores';
 import { createActionDialog } from '@/components/custom/data-table/create-action-dialog';
 import type { RowActionsProps } from '@/components/custom/data-table/create-form-dialog';
 import EditDialog from '@/pages/scores/edit-dialog';

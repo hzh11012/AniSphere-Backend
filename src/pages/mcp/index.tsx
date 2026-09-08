@@ -1,5 +1,5 @@
 import { useRequest } from 'ahooks';
-import { fetchMcpInfo } from '@/apis';
+import { fetchMcpInfo } from '@/apis/mcp';
 import DataTableRefresh from '@/components/custom/data-table/data-table-refresh';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Network, ShieldCheck, ShieldAlert, Wrench, Globe } from 'lucide-react';

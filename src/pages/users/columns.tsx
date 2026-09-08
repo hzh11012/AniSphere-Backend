@@ -1,4 +1,4 @@
-import type { UserListItem } from '@/apis';
+import type { UserListItem } from '@/apis/users';
 import { createMap, formatDate } from '@/lib/utils';
 import type { ColumnDef } from '@tanstack/react-table';
 import { Search } from 'lucide-react';

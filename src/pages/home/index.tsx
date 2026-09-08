@@ -1,6 +1,6 @@
 import { useRequest } from 'ahooks';
-import { fetchDashboardStats } from '@/apis';
-import type { DashboardStatsResponse } from '@/apis';
+import { fetchDashboardStats } from '@/apis/dashboard';
+import type { DashboardStatsResponse } from '@/apis/dashboard';
 import { AlertTriangle } from 'lucide-react';
 import ContentOverview from './content-overview';
 import InteractionOverview from './interaction-overview';

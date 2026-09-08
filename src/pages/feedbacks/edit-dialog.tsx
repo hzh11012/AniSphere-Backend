@@ -1,4 +1,4 @@
-import { updateFeedback, type FeedbackListItem } from '@/apis';
+import { updateFeedback, type FeedbackListItem } from '@/apis/feedbacks';
 import FeedbackForm from '@/pages/feedbacks/feedback-form';
 import {
   feedbackSchema,

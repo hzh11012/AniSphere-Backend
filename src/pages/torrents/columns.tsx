@@ -1,4 +1,4 @@
-import type { TorrentsListItem } from '@/apis';
+import type { TorrentsListItem } from '@/apis/torrents';
 import DataTableColumnSort from '@/components/custom/data-table/data-table-column-sort';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';

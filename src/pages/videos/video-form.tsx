@@ -4,7 +4,7 @@ import FormNumber from '@/components/custom/form/form-number';
 import FormCombobox from '@/components/custom/form/form-combobox';
 import type { UseFormReturn } from 'react-hook-form';
 import type { VideoFormValues } from '@/pages/videos/form-schema';
-import type { AnimeOptionRes } from '@/apis';
+import type { AnimeOptionRes } from '@/apis/anime';
 
 interface VideoFormProps {
   form: UseFormReturn<VideoFormValues>;

@@ -1,4 +1,4 @@
-import { deleteFeedback, type FeedbackListItem } from '@/apis';
+import { deleteFeedback, type FeedbackListItem } from '@/apis/feedbacks';
 import { createActionDialog } from '@/components/custom/data-table/create-action-dialog';
 import type { RowActionsProps } from '@/components/custom/data-table/create-form-dialog';
 import EditDialog from '@/pages/feedbacks/edit-dialog';

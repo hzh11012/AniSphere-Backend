@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 import { DataTable } from '@/components/custom/data-table/data-table';
 import getColumns from '@/pages/histories/columns';
-import { useHistoryStore } from '@/store';
-import { fetchHistories } from '@/apis';
+import { useHistoryStore } from '@/store/histories';
+import { fetchHistories } from '@/apis/histories';
 import DataTableSearch from '@/components/custom/data-table/data-table-search';
 import DataTableRefresh from '@/components/custom/data-table/data-table-refresh';
 import { useDataTablePage } from '@/hooks/use-data-table-page';
